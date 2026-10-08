@@ -9,6 +9,7 @@ const rewards = await readJson("data/reward-rules.json");
 const items = await readJson("data/items.json");
 const html = await readFile("index.html", "utf8");
 const app = await readFile("src/app.js", "utf8");
+const css = await readFile("styles.css", "utf8");
 
 const expectedParagraph =
   "First, I am Tom. I am near the front door at home. My school bag is under the small table. Two books are in the bag. The bag is for school. School is my next place. I can bring a bag to school. My hands are free.";
@@ -41,7 +42,16 @@ assert.deepEqual(recipe.requires, { MAT_WOOD: 1, MAT_PAPER: 1 });
 assert.match(html, /src\/app\.js/);
 assert.match(app, /localStorage/);
 assert.match(app, /completedActivities/);
+assert.match(app, /data-nav="shop"/);
+assert.match(app, /Tom's Note/);
+assert.match(css, /\.village/);
+assert.match(css, /\.item-card/);
+assert.match(css, /\.recipe-card/);
+assert.match(css, /\.collection-grid/);
+assert.doesNotMatch(app, /bind\("#open-shop", renderShop\)/);
+assert.doesNotMatch(app, /bind\("#open-craft", renderCraft\)/);
+assert.doesNotMatch(app, /\[object PointerEvent\]/);
 assert.doesNotMatch(app, /sk-[A-Za-z0-9_-]{10,}/);
 assert.doesNotMatch(app, /English_Learning_DB\/main/);
 
-console.log("RC01 smoke checks PASS");
+console.log("RC01R2 visual and smoke checks PASS");
