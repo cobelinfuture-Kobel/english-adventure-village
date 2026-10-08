@@ -1,0 +1,37 @@
+{
+  "schema_version": "eav.rc01.demo-activity.v1",
+  "activity_id": "RC01-U06-FIND-BAG-E003",
+  "unit_id": "U06",
+  "activity_type": "READ_AND_FIND_OBJECT",
+  "reading_entry_id": "U06-READ360-E003",
+  "source_episode_id": "U06-NEB-E003",
+  "family_id": "SIMPLE_CONNECTED_STORY",
+  "display_shell": {
+    "label": "Connected reading",
+    "title": "A short connected text"
+  },
+  "body_sentences": [
+    "First, I am Tom.",
+    "I am near the front door at home.",
+    "My school bag is under the small table.",
+    "Two books are in the bag.",
+    "The bag is for school.",
+    "School is my next place.",
+    "I can bring a bag to school.",
+    "My hands are free."
+  ],
+  "paragraph": "First, I am Tom. I am near the front door at home. My school bag is under the small table. Two books are in the bag. The bag is for school. School is my next place. I can bring a bag to school. My hands are free.",
+  "game_projection": {
+    "mission_title_zh_tw": "Tom 的 school bag",
+    "instruction_zh_tw": "閱讀 Tom 的短文，然後在房間裡找到 school bag。",
+    "target_object_id": "OBJ_SCHOOL_BAG"
+  },
+  "authority": {
+    "repo": "cobelinfuture-Kobel/English_Learning_DB",
+    "commit": "3f498e7336e6df9feb4e8f16d5b39aaf46eb03df",
+    "path": "product/a1fs_v1_2_1/data/unit06_reading360_360.json",
+    "entry_id": "U06-READ360-E003",
+    "gpt56_semantic_review": "PASS",
+    "human_pilot_status": "APPROVED_BY_OPERATOR"
+  }
+}

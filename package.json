@@ -1,0 +1,9 @@
+{
+  "name": "english-adventure-village",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --check src/app.js && node tests/smoke.mjs"
+  }
+}
