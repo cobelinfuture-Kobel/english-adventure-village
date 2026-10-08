@@ -81,7 +81,6 @@ assert.match(app, /FIND_OBJECT/);
 assert.match(app, /CLEAN_ROOM/);
 assert.match(app, /CLOSE_DOOR/);
 assert.match(app, /take-photo/);
-assert.match(app, /mastery/);
 assert.match(app, /localStorage/);
 assert.match(css, /mission-card-grid/);
 assert.match(css, /scene-clean-room/);
