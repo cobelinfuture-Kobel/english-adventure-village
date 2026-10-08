@@ -11,7 +11,31 @@
       "blob_sha": "d607187e881c4b335fc60df1c3015836eadba395",
       "entry_id": "U06-READ360-E003",
       "canonical_role": "UNIT06_READING360_LEARNER_FACING_AUTHORITY",
-      "local_projection": "data/demo-activity.json"
+      "local_projection": "data/missions.json"
+    },
+    {
+      "resource_id": "U06_READING360_E089",
+      "path": "product/a1fs_v1_2_1/data/unit06_reading360_360.json",
+      "blob_sha": "d607187e881c4b335fc60df1c3015836eadba395",
+      "entry_id": "U06-READ360-E089",
+      "canonical_role": "UNIT06_READING360_LEARNER_FACING_AUTHORITY",
+      "local_projection": "data/missions.json"
+    },
+    {
+      "resource_id": "U06_READING360_E093",
+      "path": "product/a1fs_v1_2_1/data/unit06_reading360_360.json",
+      "blob_sha": "d607187e881c4b335fc60df1c3015836eadba395",
+      "entry_id": "U06-READ360-E093",
+      "canonical_role": "UNIT06_READING360_LEARNER_FACING_AUTHORITY",
+      "local_projection": "data/missions.json"
+    },
+    {
+      "resource_id": "U06_READING360_E154",
+      "path": "product/a1fs_v1_2_1/data/unit06_reading360_360.json",
+      "blob_sha": "d607187e881c4b335fc60df1c3015836eadba395",
+      "entry_id": "U06-READ360-E154",
+      "canonical_role": "UNIT06_READING360_LEARNER_FACING_AUTHORITY",
+      "local_projection": "data/missions.json"
     }
   ]
 }

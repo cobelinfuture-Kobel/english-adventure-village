@@ -1,5 +1,5 @@
 const app = document.querySelector('#app');
-const BUILD_VERSION = 'asset-r1-cachefix-20261008';
+const BUILD_VERSION = 'rc02-multimission-20261008';
 const ATLAS_PART_URLS = Array.from({ length: 6 }, (_, index) => `./assets/anchor-v1/atlas.b64.part${index + 1}?v=${BUILD_VERSION}`);
 
 async function installApprovedPixelAtlas() {
@@ -12,12 +12,14 @@ async function installApprovedPixelAtlas() {
 
 await installApprovedPixelAtlas();
 
-const [activity, rewardRules, itemData, resourceManifest] = await Promise.all([
-  fetch('./data/demo-activity.json').then((response) => response.json()),
+const [missionsData, rewardRules, itemData, resourceManifest] = await Promise.all([
+  fetch('./data/missions.json').then((response) => response.json()),
   fetch('./data/reward-rules.json').then((response) => response.json()),
   fetch('./data/items.json').then((response) => response.json()),
   fetch('./data/resource-manifest.json').then((response) => response.json())
 ]);
+
+const missions = missionsData.missions;
 
 const learners = {
   james: { id: 'james', name: 'James', sprite: 'james' },
@@ -27,6 +29,24 @@ const learners = {
 const STORAGE_PREFIX = 'eav.rc01.learner.';
 let learner = null;
 let state = null;
+let activeMissionId = null;
+let missionProgress = {};
+
+function missionById(missionId) {
+  return missions.find((mission) => mission.mission_id === missionId);
+}
+
+function missionCompleted(mission) {
+  return state?.completedActivities?.includes(mission.activity_id) ?? false;
+}
+
+function nextMission() {
+  return missions.find((mission) => !missionCompleted(mission)) || missions[0];
+}
+
+function missionStatusLabel(mission) {
+  return missionCompleted(mission) ? '完成' : mission.mission_id === nextMission().mission_id ? '下一個任務' : '可挑戰';
+}
 
 function sprite(group, name, label = '', extraClass = '') {
   return `<span class="sprite atlas-${group} sprite-${name} ${extraClass}" ${label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"'}></span>`;
@@ -128,6 +148,8 @@ function renderLearnerSelect() {
 }
 
 function renderVillage(message = '') {
+  const featuredMission = nextMission();
+
   app.innerHTML = `
     ${header('My Village')}
     <section class="village" aria-label="English Adventure Village">
@@ -145,7 +167,7 @@ function renderVillage(message = '') {
       <div class="village-prop prop-fence-a">${sprite('props', 'fence', 'fence')}</div>
       <div class="village-prop prop-fence-b">${sprite('props', 'fence', 'fence')}</div>
 
-      <button class="building-button building-home" data-nav="mission" aria-label="Mission House">
+      <button class="building-button building-home" data-nav="mission-house" aria-label="Mission House">
         ${sprite('buildings', 'mission-house', 'Mission House')}
         <span>Mission House</span>
       </button>
@@ -169,87 +191,243 @@ function renderVillage(message = '') {
 
     <section class="quest-strip pixel-frame">
       <div>
-        <h2>Today's Mission · ${activity.game_projection.mission_title_zh_tw}</h2>
-        <p>閱讀提示，在房間裡找到 Tom 的 school bag。</p>
+        <h2>Next Mission · ${featuredMission.game_projection.mission_title_zh_tw}</h2>
+        <p>${featuredMission.game_projection.instruction_zh_tw}</p>
+        <div class="mission-progress-summary">Unit 06 · ${state.completedActivities.filter((activityId) => missions.some((mission) => mission.activity_id === activityId)).length} / ${missions.length} missions complete</div>
       </div>
       <div class="quest-actions">
-        <button id="start-mission" class="primary">開始任務</button>
+        <button id="start-mission" class="primary">開始下一個任務</button>
+        <button id="open-mission-house" class="secondary">Mission House</button>
         <button id="change-learner" class="secondary">切換學習者</button>
       </div>
     </section>
 
     <details class="dev-details">
       <summary>Developer info</summary>
-      <div>Source pin: ${resourceManifest.source_commit.slice(0, 12)} · ${activity.reading_entry_id}</div>
-      <div>Visual asset anchor: cozy-16bit-pixel-rpg-v1</div>\n      <div>Build: ${BUILD_VERSION}</div>
+      <div>Source pin: ${resourceManifest.source_commit.slice(0, 12)} · 4 canonical Reading360 entries</div>
+      <div>Visual asset anchor: cozy-16bit-pixel-rpg-v1</div>
+      <div>Build: ${BUILD_VERSION}</div>
     </details>
   `;
 
   document.querySelectorAll('[data-nav]').forEach((button) => {
     button.addEventListener('click', () => {
       const target = button.dataset.nav;
-      if (target === 'mission') renderMission();
+      if (target === 'mission-house') renderMissionHouse();
       if (target === 'shop') renderShop();
       if (target === 'craft') renderCraft();
       if (target === 'collection') renderCollection();
     });
   });
 
-  bind('#start-mission', () => renderMission());
+  bind('#start-mission', () => renderMission(featuredMission.mission_id));
+  bind('#open-mission-house', () => renderMissionHouse());
   bind('#change-learner', () => renderLearnerSelect());
 }
 
-function renderMission() {
-  const completed = state.completedActivities.includes(activity.activity_id);
+function renderMissionHouse() {
+  const featuredMission = nextMission();
 
   app.innerHTML = `
-    ${header('Mission · ' + activity.game_projection.mission_title_zh_tw)}
+    ${header('Mission House')}
+    <section class="game-window pixel-frame mission-house-window">
+      <div class="mission-house-header">
+        <div>
+          <h1>Unit 06 Mission House</h1>
+          <p class="lead">四個任務都可以挑戰；完成紀錄只代表遊戲進度，不寫入 mastery。</p>
+        </div>
+        <div class="mission-count">${missions.filter(missionCompleted).length} / ${missions.length}</div>
+      </div>
+      <div class="mission-card-grid">
+        ${missions.map((mission, index) => {
+          const complete = missionCompleted(mission);
+          const featured = mission.mission_id === featuredMission.mission_id;
+          return `
+            <article class="mission-card ${complete ? 'mission-complete' : ''} ${featured ? 'mission-featured' : ''}">
+              <div class="mission-card-topline">
+                <span class="mission-number">M${String(index + 1).padStart(2, '0')}</span>
+                <span class="mission-status">${missionStatusLabel(mission)}</span>
+              </div>
+              <h2>${mission.game_projection.mission_title_zh_tw}</h2>
+              <div class="mission-family">${mission.display_shell.label}</div>
+              <p>${mission.game_projection.instruction_zh_tw}</p>
+              <button class="${featured ? 'primary' : 'secondary'}" data-mission-id="${mission.mission_id}">${complete ? '重玩任務' : '進入任務'}</button>
+            </article>
+          `;
+        }).join('')}
+      </div>
+      <button id="mission-house-back" class="secondary">回村莊</button>
+    </section>
+  `;
+
+  document.querySelectorAll('[data-mission-id]').forEach((button) => {
+    button.addEventListener('click', () => renderMission(button.dataset.missionId));
+  });
+  bind('#mission-house-back', () => renderVillage());
+}
+
+function renderMission(missionId) {
+  const mission = missionById(missionId);
+  if (!mission) return renderMissionHouse();
+
+  activeMissionId = missionId;
+  missionProgress = {};
+  const completed = missionCompleted(mission);
+
+  app.innerHTML = `
+    ${header('Mission · ' + mission.game_projection.mission_title_zh_tw)}
     <section class="mission-shell">
       <div class="mission-titlebar">
-        <h1>Find Tom's school bag</h1>
-        <div class="target-chip">Target: school bag</div>
+        <h1>${mission.game_projection.mission_title_zh_tw}</h1>
+        <div class="target-chip">目標：${mission.game_projection.target_label}</div>
       </div>
 
       <div class="mission-grid">
         <article class="reading-note">
-          <div class="note-tab">Tom's Note</div>
-          <h2>${activity.display_shell.title}</h2>
-          <p>${activity.paragraph}</p>
-          <p class="feedback">${activity.game_projection.instruction_zh_tw}</p>
+          <div class="note-tab">${mission.display_shell.label}</div>
+          <h2>${mission.display_shell.title}</h2>
+          <p>${mission.paragraph}</p>
+          <p class="feedback">${mission.game_projection.instruction_zh_tw}</p>
           ${completed ? '<p class="small-note">已完成：重玩不會再次取得 Coins 或 Paper。</p>' : ''}
           <details class="dev-details">
             <summary>Developer info</summary>
-            <div>Canonical · ${activity.reading_entry_id}</div>
+            <div>Canonical · ${mission.reading_entry_id}</div>
+            <div>${mission.family_id} · ${mission.interaction_type}</div>
           </details>
         </article>
 
-        <div class="room" aria-label="Tom home room">
-          <div class="room-wall"></div>
-          <div class="room-object room-window">${sprite('room', 'window', 'window')}</div>
-          <div class="room-object room-bed">${sprite('room', 'bed', 'bed')}</div>
-          <div class="room-object room-rug">${sprite('room', 'rug', 'rug')}</div>
-          <div class="room-object room-plant">${sprite('room', 'plant', 'plant')}</div>
-          <div class="room-object room-door">${sprite('room', 'door', 'door')}</div>
-          <div class="room-object room-table">${sprite('room', 'small-table', 'small table')}</div>
-          <button class="room-target room-bag" id="school-bag" aria-label="school bag">
-            ${sprite('room', 'school-bag', 'school bag')}
-          </button>
-          <div class="room-object room-books">${sprite('room', 'books', 'books')}</div>
-        </div>
+        ${renderMissionScene(mission)}
       </div>
 
-      <section class="panel pixel-frame">
+      <section class="panel pixel-frame mission-footer-actions">
+        <button id="mission-list" class="secondary">Mission House</button>
         <button id="mission-back" class="secondary">回村莊</button>
       </section>
     </section>
   `;
 
-  bind('#school-bag', () => completeMission());
+  bindMissionScene(mission);
+  bind('#mission-list', () => renderMissionHouse());
   bind('#mission-back', () => renderVillage());
 }
 
-function completeMission() {
-  const alreadyCompleted = state.completedActivities.includes(activity.activity_id);
+function renderMissionScene(mission) {
+  if (mission.interaction_type === 'FIND_OBJECT') {
+    return `
+      <div class="room scene-find-bag" aria-label="Tom home room">
+        <div class="room-wall"></div>
+        <div class="room-object room-window">${sprite('room', 'window', 'window')}</div>
+        <div class="room-object room-bed">${sprite('room', 'bed', 'bed')}</div>
+        <div class="room-object room-rug">${sprite('room', 'rug', 'rug')}</div>
+        <div class="room-object room-plant">${sprite('room', 'plant', 'plant')}</div>
+        <div class="room-object room-door">${sprite('room', 'door', 'door')}</div>
+        <div class="room-object room-table">${sprite('room', 'small-table', 'small table')}</div>
+        <button class="room-target room-bag" id="school-bag" aria-label="school bag">
+          ${sprite('room', 'school-bag', 'school bag')}
+        </button>
+        <div class="room-object room-books">${sprite('room', 'books', 'books')}</div>
+      </div>
+    `;
+  }
+
+  if (mission.interaction_type === 'CLEAN_ROOM') {
+    return `
+      <div class="room scene-clean-room" aria-label="Leo bedroom">
+        <div class="room-wall"></div>
+        <div class="room-object clean-bed">${sprite('room', 'bed', 'bed')}</div>
+        <div class="room-object clean-desk">${sprite('room', 'small-table', 'desk')}</div>
+        <div class="cloth-on-desk" role="img" aria-label="cloth"></div>
+        <button class="room-target clean-book clean-book-a" data-clean-book="a" aria-label="book on the floor">${sprite('room', 'books', 'books')}</button>
+        <button class="room-target clean-book clean-book-b" data-clean-book="b" aria-label="book on the floor">${sprite('room', 'books', 'books')}</button>
+        <div class="clean-drop-zone">把 books 收好</div>
+        <div class="scene-status" id="clean-status">0 / 2 books</div>
+      </div>
+    `;
+  }
+
+  if (mission.interaction_type === 'CLOSE_DOOR') {
+    return `
+      <div class="room scene-hallway" aria-label="home hallway">
+        <div class="hallway-wall"></div>
+        <div class="hallway-mat"></div>
+        <div class="hallway-family">家人在屋內</div>
+        <button class="room-target hallway-door door-open-state" id="front-door" aria-label="open front door">
+          <span class="doorway-shadow"></span>
+          ${sprite('room', 'door', 'front door')}
+        </button>
+        <div class="scene-status" id="door-status">front door = open</div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="room scene-media-room" aria-label="school media room">
+      <div class="media-wall"></div>
+      <div class="class-display" role="img" aria-label="class display">
+        <span class="display-card display-card-a"></span>
+        <span class="display-card display-card-b"></span>
+        <span class="display-card display-card-c"></span>
+        <strong>class display</strong>
+      </div>
+      <div class="media-table">${sprite('room', 'small-table', 'table')}</div>
+      <div class="camera-on-table" aria-hidden="true"><span class="camera-lens"></span></div>
+      <button class="camera-control" id="take-photo" aria-label="camera">
+        <span class="camera-icon"><span></span></span>
+        <strong>camera</strong>
+      </button>
+      <div class="photo-flash" id="photo-flash"></div>
+      <div class="scene-status">對準 class display</div>
+    </div>
+  `;
+}
+
+function bindMissionScene(mission) {
+  if (mission.interaction_type === 'FIND_OBJECT') {
+    bind('#school-bag', () => completeMission(mission));
+    return;
+  }
+
+  if (mission.interaction_type === 'CLEAN_ROOM') {
+    document.querySelectorAll('[data-clean-book]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const bookId = button.dataset.cleanBook;
+        if (missionProgress[bookId]) return;
+        missionProgress[bookId] = true;
+        button.classList.add('book-cleaned');
+        const count = Object.keys(missionProgress).length;
+        const status = document.querySelector('#clean-status');
+        if (status) status.textContent = `${count} / 2 books`;
+        if (count === 2) setTimeout(() => completeMission(mission), 350);
+      });
+    });
+    return;
+  }
+
+  if (mission.interaction_type === 'CLOSE_DOOR') {
+    bind('#front-door', () => {
+      const door = document.querySelector('#front-door');
+      if (!door || missionProgress.closed) return;
+      missionProgress.closed = true;
+      door.classList.remove('door-open-state');
+      door.classList.add('door-closed-state');
+      const status = document.querySelector('#door-status');
+      if (status) status.textContent = 'front door = closed';
+      setTimeout(() => completeMission(mission), 450);
+    });
+    return;
+  }
+
+  bind('#take-photo', () => {
+    if (missionProgress.photoTaken) return;
+    missionProgress.photoTaken = true;
+    const flash = document.querySelector('#photo-flash');
+    if (flash) flash.classList.add('flash-active');
+    setTimeout(() => completeMission(mission), 500);
+  });
+}
+
+function completeMission(mission) {
+  const alreadyCompleted = missionCompleted(mission);
 
   if (!alreadyCompleted) {
     const reward = rewardRules.events.RC01_FIRST_CLEAR;
@@ -257,24 +435,26 @@ function completeMission() {
     for (const [materialId, amount] of Object.entries(reward.materials)) {
       state.materials[materialId] = (state.materials[materialId] || 0) + amount;
     }
-    state.completedActivities.push(activity.activity_id);
+    state.completedActivities.push(mission.activity_id);
     state.rewardHistory.push({
       event: 'RC01_FIRST_CLEAR',
-      activityId: activity.activity_id,
+      missionId: mission.mission_id,
+      activityId: mission.activity_id,
       awardedAt: new Date().toISOString()
     });
     saveState();
   }
 
-  renderReward(alreadyCompleted);
+  renderReward(mission, alreadyCompleted);
 }
 
-function renderReward(repeatClear) {
+function renderReward(mission, repeatClear) {
   app.innerHTML = `
     ${header('Mission Clear')}
     <section class="reward-card pixel-frame">
       <p class="reward-big">★</p>
-      <h1>${repeatClear ? '再次找到 school bag' : 'Mission Clear!'}</h1>
+      <h1>${repeatClear ? '再次完成任務' : 'Mission Clear!'}</h1>
+      <h2>${mission.game_projection.mission_title_zh_tw}</h2>
       ${repeatClear ? `
         <p>這是重玩紀錄，不重複發放 Coins 或材料。</p>
       ` : `
@@ -283,10 +463,16 @@ function renderReward(repeatClear) {
           <span class="reward-chip item-reward">${sprite('items', 'paper', 'Paper')} +1 Paper</span>
         </div>
       `}
-      <button id="reward-village" class="primary">回村莊</button>
+      <div class="reward-actions">
+        <button id="reward-next" class="primary">下一個任務</button>
+        <button id="reward-house" class="secondary">Mission House</button>
+        <button id="reward-village" class="secondary">回村莊</button>
+      </div>
     </section>
   `;
 
+  bind('#reward-next', () => renderMission(nextMission().mission_id));
+  bind('#reward-house', () => renderMissionHouse());
   bind('#reward-village', () => renderVillage(repeatClear ? '重玩完成，獎勵未重複計算。' : '任務獎勵已放進你的背包。'));
 }
 
