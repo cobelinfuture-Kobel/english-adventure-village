@@ -386,8 +386,13 @@ button:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
 .display-card-b { background: #e88269; }
 .display-card-c { background: #a7d2e8; }
 .media-table { position: absolute; left: 17%; top: 45%; transform: scale(1.18); }
+.media-friend {
+  position: absolute; right: 8%; bottom: 12%; z-index: 5;
+  width: 96px; height: 132px; display: grid; place-items: end center; overflow: visible;
+}
+.media-friend .sprite { transform: scale(.64); transform-origin: center bottom; }
 .camera-on-table {
-  position: absolute; left: 26%; top: 44%; width: 64px; height: 46px; z-index: 8;
+  position: absolute; left: 24%; top: 43%; width: 64px; height: 46px; z-index: 8;
   background: #4d594f; border: 5px solid #303b34; border-radius: 7px; box-shadow: 0 4px 0 #263028;
 }
 .camera-on-table::before {
