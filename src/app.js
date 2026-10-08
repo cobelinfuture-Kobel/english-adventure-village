@@ -1,5 +1,6 @@
 const app = document.querySelector('#app');
-const ATLAS_PART_URLS = Array.from({ length: 6 }, (_, index) => `./assets/anchor-v1/atlas.b64.part${index + 1}`);
+const BUILD_VERSION = 'asset-r1-cachefix-20261008';
+const ATLAS_PART_URLS = Array.from({ length: 6 }, (_, index) => `./assets/anchor-v1/atlas.b64.part${index + 1}?v=${BUILD_VERSION}`);
 
 async function installApprovedPixelAtlas() {
   const parts = await Promise.all(ATLAS_PART_URLS.map((url) => fetch(url).then((response) => {
@@ -180,7 +181,7 @@ function renderVillage(message = '') {
     <details class="dev-details">
       <summary>Developer info</summary>
       <div>Source pin: ${resourceManifest.source_commit.slice(0, 12)} · ${activity.reading_entry_id}</div>
-      <div>Visual asset anchor: cozy-16bit-pixel-rpg-v1</div>
+      <div>Visual asset anchor: cozy-16bit-pixel-rpg-v1</div>\n      <div>Build: ${BUILD_VERSION}</div>
     </details>
   `;
 
