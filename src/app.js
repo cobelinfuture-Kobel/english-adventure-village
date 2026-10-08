@@ -1,5 +1,5 @@
 const app = document.querySelector('#app');
-const BUILD_VERSION = 'rc02-scene-r1-20261008';
+const BUILD_VERSION = 'rc02-scene-r2-20261008';
 const ATLAS_PART_URLS = Array.from({ length: 6 }, (_, index) => `./assets/anchor-v1/atlas.b64.part${index + 1}?v=${BUILD_VERSION}`);
 
 async function installApprovedPixelAtlas() {
@@ -373,6 +373,7 @@ function renderMissionScene(mission) {
         <strong>class display</strong>
       </div>
       <div class="media-table">${sprite('room', 'small-table', 'table')}</div>
+      <div class="media-friend">${sprite('characters', 'cyndi', 'friend')}</div>
       <button class="camera-on-table" id="take-photo" aria-label="camera">
         <span class="camera-lens"></span>
         <span class="camera-label">camera</span>
