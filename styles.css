@@ -67,10 +67,14 @@ button:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
 .atlas-characters,
 .atlas-buildings,
 .atlas-props,
-.atlas-room,
-.atlas-items {
+.atlas-room {
   background-image: var(--anchor-atlas);
   background-size: 384px 1440px;
+}
+
+.atlas-items {
+  background-image: url("./assets/anchor-v1/items-128.png?v=asset-r2-icons-20261008");
+  background-size: 128px 96px;
 }
 
 .sprite-james { width: 80px; height: 134px; background-position: -8px -79px; }
@@ -100,9 +104,9 @@ button:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
 .sprite-rug { width: 90px; height: 67px; background-position: -234px -1057px; }
 .sprite-books { width: 54px; height: 60px; background-position: -324px -1066px; }
 
-.sprite-wood { width: 57px; height: 53px; background-position: -53px -1347px; }
-.sprite-paper { width: 58px; height: 50px; background-position: -164px -1354px; }
-.sprite-bookshelf { width: 62px; height: 60px; background-position: -275px -1343px; }
+.sprite-wood { width: 40px; height: 33px; background-position: -5px -25px; }
+.sprite-paper { width: 37px; height: 32px; background-position: -47px -28px; }
+.sprite-bookshelf { width: 37px; height: 44px; background-position: -88px -15px; }
 
 .hero-board { max-width: 900px; margin: 34px auto 0; padding: 24px; }
 .learner-grid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -160,11 +164,11 @@ button:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
 .building-collection { right: 15%; bottom: 43px; }
 
 .player-art {
-  position: absolute; z-index: 7; left: calc(50% - 42px); top: calc(46% - 13px);
-  width: 84px; height: 100px; overflow: hidden; display: grid; place-items: end center;
+  position: absolute; z-index: 7; left: calc(50% - 45px); top: calc(46% - 34px);
+  width: 90px; height: 122px; overflow: visible; display: grid; place-items: center;
   filter: drop-shadow(0 4px 2px rgba(46,52,38,.35));
 }
-.player-art .sprite { transform: scale(.58); transform-origin: center bottom; }
+.player-art .sprite { transform: scale(.72); transform-origin: center center; }
 
 .quest-strip {
   margin-top: 14px; display: grid; grid-template-columns: 1fr auto; gap: 14px;
@@ -203,7 +207,7 @@ button:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
 .room-object, .room-target { position: absolute; z-index: 3; background: transparent; border: 0; padding: 0; }
 .room-window { right: 7%; top: 4%; }
 .room-bed { left: 7%; top: 23%; }
-.room-rug { left: 42%; bottom: 6%; transform: scale(1.8); transform-origin: center bottom; }
+.room-rug { left: 43%; bottom: 10%; transform: scale(1.35); transform-origin: center bottom; }
 .room-plant { right: 8%; bottom: 10%; }
 .room-door { left: 4%; bottom: 0; }
 .room-table { left: 43%; top: 27%; transform: scale(1.18); }

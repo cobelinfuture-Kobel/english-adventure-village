@@ -41,20 +41,27 @@ assert.deepEqual([...atlasBuffer.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 
 assert.equal(atlasBuffer.readUInt32BE(16), 96);
 assert.equal(atlasBuffer.readUInt32BE(20), 360);
 
-assert.match(html, /src\/app\.js/);
+assert.match(html, /styles\.css\?v=asset-r1-cachefix-20261008/);
+assert.match(html, /src\/app\.js\?v=asset-r1-cachefix-20261008/);
 assert.match(app, /localStorage/);
 assert.match(app, /cozy-16bit-pixel-rpg-v1/);
 assert.match(app, /sprite\('buildings', 'mission-house'/);
 assert.match(app, /sprite\('room', 'school-bag'/);
 assert.match(app, /sprite\('items', 'bookshelf'/);
+assert.match(app, /BUILD_VERSION = 'asset-r1-cachefix-20261008'/);
 assert.match(app, /installApprovedPixelAtlas/);
 assert.match(app, /atlas\.b64\.part/);
 assert.match(css, /atlas-characters/);
 assert.match(css, /atlas-buildings/);
 assert.match(css, /atlas-room/);
 assert.match(css, /atlas-items/);
+assert.match(css, /items-128\.png\?v=asset-r2-icons-20261008/);
 assert.match(css, /--anchor-atlas/);
 assert.match(css, /background-size: 384px 1440px/);
+const itemSprite = await readFile('assets/anchor-v1/items-128.png');
+assert.deepEqual([...itemSprite.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10]);
+assert.equal(itemSprite.readUInt32BE(16), 128);
+assert.equal(itemSprite.readUInt32BE(20), 96);
 assert.doesNotMatch(app, /\[object PointerEvent\]/);
 assert.doesNotMatch(app, /sk-[A-Za-z0-9_-]{10,}/);
 assert.doesNotMatch(app, /English_Learning_DB\/main/);
