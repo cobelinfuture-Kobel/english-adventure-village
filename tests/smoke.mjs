@@ -70,9 +70,9 @@ assert.deepEqual([...itemSprite.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 1
 assert.equal(itemSprite.readUInt32BE(16), 128);
 assert.equal(itemSprite.readUInt32BE(20), 96);
 
-assert.match(html, /styles\.css\?v=rc02-scene-r1-20261008/);
-assert.match(html, /src\/app\.js\?v=rc02-scene-r1-20261008/);
-assert.match(app, /BUILD_VERSION = 'rc02-scene-r1-20261008'/);
+assert.match(html, /styles\.css\?v=rc02-scene-r2-20261008/);
+assert.match(html, /src\/app\.js\?v=rc02-scene-r2-20261008/);
+assert.match(app, /BUILD_VERSION = 'rc02-scene-r2-20261008'/);
 assert.match(app, /fetch\('\.\/data\/missions\.json'\)/);
 assert.doesNotMatch(app, /fetch\('\.\/data\/demo-activity\.json'\)/);
 assert.match(app, /function renderMissionHouse\(\)/);
