@@ -291,3 +291,102 @@ button:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
   .recipe-card { grid-template-columns: 1fr; }
   .recipe-symbol { transform: rotate(90deg); }
 }
+
+/* RC02 canonical multi-mission gameplay loop */
+.mission-progress-summary { margin-top: 7px; font-size: .86rem; font-weight: 800; color: #5f6e59; }
+.mission-house-window { padding: 20px; }
+.mission-house-header { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+.mission-house-header h1 { margin-bottom: 4px; }
+.mission-count {
+  min-width: 92px; padding: 12px 14px; text-align: center; border: 3px solid #655d46;
+  background: #fff1a9; border-radius: 8px; box-shadow: 0 3px 0 #4e4937; font-weight: 900; font-size: 1.15rem;
+}
+.mission-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0; }
+.mission-card {
+  min-height: 230px; display: flex; flex-direction: column; gap: 9px; padding: 16px;
+  border: 3px solid #5f684f; border-radius: 9px; background: #fffdf0; box-shadow: 0 4px 0 #3e4938;
+}
+.mission-card h2 { margin: 0; }
+.mission-card p { margin: 0 0 auto; color: #4f5c49; }
+.mission-card-topline { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.mission-number, .mission-status, .mission-family {
+  display: inline-block; width: fit-content; padding: 4px 7px; border: 2px solid #6c654e; border-radius: 6px;
+  background: #f4e3aa; font-size: .78rem; font-weight: 900;
+}
+.mission-family { background: #dcebd1; color: #4c5947; }
+.mission-featured { border-color: #bb8131; background: #fff5cf; box-shadow: 0 5px 0 #805b27; }
+.mission-complete { background: #eaf3e3; }
+.mission-complete .mission-status { background: #bfe2b6; }
+.mission-footer-actions, .reward-actions { display: flex; gap: 10px; margin-top: 12px; }
+.mission-footer-actions button, .reward-actions button { flex: 1; }
+
+.scene-clean-room .clean-bed { left: 8%; top: 23%; }
+.scene-clean-room .clean-desk { right: 14%; top: 25%; transform: scale(1.05); }
+.cloth-on-desk {
+  position: absolute; right: 23%; top: 45%; z-index: 5; width: 58px; height: 30px;
+  background: repeating-linear-gradient(135deg, #e6d3a8 0 7px, #c99f65 7px 14px);
+  border: 4px solid #73553c; border-radius: 5px; transform: rotate(-4deg);
+}
+.clean-book { bottom: 17%; z-index: 6; transition: transform .28s ease, opacity .28s ease; }
+.clean-book-a { left: 28%; transform: rotate(-8deg); }
+.clean-book-b { left: 53%; transform: rotate(9deg); }
+.clean-book.book-cleaned { transform: translate(150px, -170px) scale(.65); opacity: .15; pointer-events: none; }
+.clean-drop-zone {
+  position: absolute; right: 8%; bottom: 11%; padding: 8px 12px; border: 3px dashed #806341;
+  background: rgba(255,247,204,.86); border-radius: 7px; font-weight: 900;
+}
+.scene-status {
+  position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); z-index: 8;
+  padding: 7px 11px; background: #fff4bd; border: 3px solid #615a46; border-radius: 7px; font-weight: 900;
+}
+
+.scene-hallway { background: #d4b27e; }
+.hallway-wall { position: absolute; inset: 0 0 52% 0; background: #eed6aa; border-bottom: 5px solid #a67b52; }
+.hallway-mat { position: absolute; left: 37%; bottom: 12%; width: 26%; height: 18%; background: #b85f52; border: 5px solid #7d433b; }
+.hallway-family {
+  position: absolute; right: 10%; top: 22%; padding: 8px 12px; background: #dcebd1;
+  border: 3px solid #58634f; border-radius: 7px; font-weight: 900;
+}
+.hallway-door { left: 22%; top: 23%; z-index: 6; width: 128px; height: 180px; display: grid; place-items: end center; }
+.hallway-door .sprite { position: relative; z-index: 2; transform-origin: left bottom; transition: transform .35s ease, filter .35s ease; }
+.doorway-shadow { position: absolute; left: 21px; bottom: 8px; width: 75px; height: 120px; background: #4d352a; border: 5px solid #765443; border-radius: 4px; }
+.door-open-state .sprite { transform: perspective(180px) rotateY(-48deg) skewY(2deg); filter: brightness(1.05); }
+.door-closed-state .sprite { transform: none; }
+
+.scene-media-room { background: #d5c18e; }
+.media-wall { position: absolute; inset: 0 0 46% 0; background: #e9ddb7; border-bottom: 5px solid #9d7b51; }
+.class-display {
+  position: absolute; left: 42%; top: 8%; width: 42%; height: 34%; display: grid;
+  grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 20px 16px 34px; background: #6f925e;
+  border: 7px solid #6d4d34; box-shadow: inset 0 0 0 4px #b9cf9f, 0 5px 0 #4e3828;
+}
+.class-display strong { position: absolute; bottom: 7px; left: 0; right: 0; text-align: center; color: #fff9d8; text-shadow: 2px 2px #435038; }
+.display-card { display: block; min-height: 56px; border: 3px solid #6b5c43; box-shadow: 0 2px 0 #4d4231; }
+.display-card-a { background: #f1d56d; }
+.display-card-b { background: #e88269; }
+.display-card-c { background: #a7d2e8; }
+.media-table { position: absolute; left: 18%; top: 42%; transform: scale(1.18); }
+.camera-on-table {
+  position: absolute; left: 29%; top: 51%; width: 58px; height: 42px; z-index: 6;
+  background: #4d594f; border: 5px solid #303b34; border-radius: 7px; box-shadow: 0 4px 0 #263028;
+}
+.camera-on-table::before { content: ''; position: absolute; left: 7px; top: -13px; width: 24px; height: 13px; background: #59675d; border: 4px solid #303b34; border-bottom: 0; }
+.camera-lens { position: absolute; right: 7px; top: 7px; width: 20px; height: 20px; border: 5px solid #8aa8ad; border-radius: 50%; background: #29434d; }
+.camera-control {
+  position: absolute; right: 10%; bottom: 10%; z-index: 8; width: 148px; min-height: 92px;
+  border: 4px solid #4c533e; border-radius: 9px; background: #fff1a9; box-shadow: 0 5px 0 #424837;
+  display: grid; place-items: center; gap: 4px; font-weight: 900;
+}
+.camera-control:hover { transform: translateY(-3px); }
+.camera-icon { position: relative; width: 58px; height: 38px; background: #4e5a50; border: 4px solid #303b34; border-radius: 6px; }
+.camera-icon::before { content: ''; position: absolute; left: 8px; top: -11px; width: 23px; height: 11px; background: #5f6d62; border: 4px solid #303b34; border-bottom: 0; }
+.camera-icon span { position: absolute; right: 7px; top: 6px; width: 18px; height: 18px; border: 4px solid #9cc1c7; background: #304b56; border-radius: 50%; }
+.photo-flash { position: absolute; inset: 0; z-index: 12; background: white; opacity: 0; pointer-events: none; }
+.flash-active { animation: photoFlash .45s ease-out; }
+@keyframes photoFlash { 0% { opacity: 0; } 18% { opacity: .95; } 100% { opacity: 0; } }
+
+@media (max-width: 850px) {
+  .mission-card-grid { grid-template-columns: 1fr; }
+  .mission-house-header { align-items: flex-start; }
+  .mission-footer-actions, .reward-actions { flex-direction: column; }
+}

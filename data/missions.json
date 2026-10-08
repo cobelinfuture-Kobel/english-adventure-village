@@ -1,0 +1,146 @@
+{
+  "schema_version": "eav.rc02.missions.v1",
+  "unit_id": "U06",
+  "source_commit": "3f498e7336e6df9feb4e8f16d5b39aaf46eb03df",
+  "source_path": "product/a1fs_v1_2_1/data/unit06_reading360_360.json",
+  "source_blob_sha": "d607187e881c4b335fc60df1c3015836eadba395",
+  "missions": [
+    {
+      "mission_id": "RC02-U06-M01-E003",
+      "reading_entry_id": "U06-READ360-E003",
+      "source_episode_id": "U06-NEB-E003",
+      "family_id": "SIMPLE_CONNECTED_STORY",
+      "interaction_type": "FIND_OBJECT",
+      "display_shell": {
+        "label": "Connected reading",
+        "title": "A short connected text"
+      },
+      "body_sentences": [
+        "First, I am Tom.",
+        "I am near the front door at home.",
+        "My school bag is under the small table.",
+        "Two books are in the bag.",
+        "The bag is for school.",
+        "School is my next place.",
+        "I can bring a bag to school.",
+        "My hands are free."
+      ],
+      "paragraph": "First, I am Tom. I am near the front door at home. My school bag is under the small table. Two books are in the bag. The bag is for school. School is my next place. I can bring a bag to school. My hands are free.",
+      "game_projection": {
+        "mission_title_zh_tw": "找到 Tom 的 school bag",
+        "instruction_zh_tw": "閱讀短文，然後在房間裡找到 school bag。",
+        "target_label": "school bag",
+        "scene_id": "BEDROOM_FIND_BAG"
+      },
+      "authority": {
+        "gpt56_semantic_review": "PASS",
+        "family_purpose_review": "PASS",
+        "unit01_to_unit06_grammar_ceiling_review": "PASS",
+        "human_pilot_status": "APPROVED_BY_OPERATOR"
+      },
+      "activity_id": "RC01-U06-FIND-BAG-E003"
+    },
+    {
+      "mission_id": "RC02-U06-M02-E089",
+      "reading_entry_id": "U06-READ360-E089",
+      "source_episode_id": "U06-NEB-E089",
+      "family_id": "PROBLEM_SOLUTION",
+      "interaction_type": "CLEAN_ROOM",
+      "display_shell": {
+        "label": "Problem and solution",
+        "title": "Problem and solution"
+      },
+      "body_sentences": [
+        "Leo is in his bedroom after school.",
+        "Two books are on the floor.",
+        "A cloth is on the desk.",
+        "His bedroom is not tidy now.",
+        "Leo is near the books.",
+        "Leo can clean a room without help.",
+        "The room is tidy after the task."
+      ],
+      "paragraph": "Leo is in his bedroom after school. Two books are on the floor. A cloth is on the desk. His bedroom is not tidy now. Leo is near the books. Leo can clean a room without help. The room is tidy after the task.",
+      "game_projection": {
+        "mission_title_zh_tw": "幫 Leo 整理房間",
+        "instruction_zh_tw": "閱讀短文，把地上的兩本 books 收好。",
+        "target_label": "two books",
+        "scene_id": "BEDROOM_CLEAN_BOOKS"
+      },
+      "authority": {
+        "gpt56_semantic_review": "PASS",
+        "family_purpose_review": "PASS",
+        "unit01_to_unit06_grammar_ceiling_review": "PASS",
+        "human_pilot_status": "APPROVED_BY_OPERATOR"
+      },
+      "activity_id": "RC02-U06-CLEAN-ROOM-E089"
+    },
+    {
+      "mission_id": "RC02-U06-M03-E093",
+      "reading_entry_id": "U06-READ360-E093",
+      "source_episode_id": "U06-NEB-E093",
+      "family_id": "DAILY_LIFE_NOTE",
+      "interaction_type": "CLOSE_DOOR",
+      "display_shell": {
+        "label": "Daily-life note",
+        "title": "Daily information"
+      },
+      "body_sentences": [
+        "Tom is in the home hallway.",
+        "The front door is open.",
+        "His family is inside the house.",
+        "The hallway is quiet.",
+        "Tom is near the door.",
+        "Tom can close the door by himself.",
+        "The door is at the front of the house.",
+        "The family is inside."
+      ],
+      "paragraph": "Tom is in the home hallway. The front door is open. His family is inside the house. The hallway is quiet. Tom is near the door. Tom can close the door by himself. The door is at the front of the house. The family is inside.",
+      "game_projection": {
+        "mission_title_zh_tw": "把 front door 關好",
+        "instruction_zh_tw": "閱讀短文，點擊 open 的 front door，把門關起來。",
+        "target_label": "front door",
+        "scene_id": "HALLWAY_CLOSE_DOOR"
+      },
+      "authority": {
+        "gpt56_semantic_review": "PASS",
+        "family_purpose_review": "PASS",
+        "unit01_to_unit06_grammar_ceiling_review": "PASS",
+        "human_pilot_status": "APPROVED_BY_OPERATOR"
+      },
+      "activity_id": "RC02-U06-CLOSE-DOOR-E093"
+    },
+    {
+      "mission_id": "RC02-U06-M04-E154",
+      "reading_entry_id": "U06-READ360-E154",
+      "source_episode_id": "U06-NEB-E154",
+      "family_id": "PICTURE_LINKED_DESCRIPTION",
+      "interaction_type": "TAKE_PHOTO",
+      "display_shell": {
+        "label": "Look at the picture",
+        "title": "Class display picture"
+      },
+      "body_sentences": [
+        "Mia is in the school media room.",
+        "A camera is on the table.",
+        "Her friend is near the bright wall.",
+        "The class display is on the wall.",
+        "Mia can take a photo of the display.",
+        "The picture is clear."
+      ],
+      "paragraph": "Mia is in the school media room. A camera is on the table. Her friend is near the bright wall. The class display is on the wall. Mia can take a photo of the display. The picture is clear.",
+      "game_projection": {
+        "mission_title_zh_tw": "拍下 class display",
+        "instruction_zh_tw": "閱讀短文，對準牆上的 class display，按下 camera。",
+        "target_label": "class display",
+        "scene_id": "MEDIA_ROOM_TAKE_PHOTO"
+      },
+      "authority": {
+        "gpt56_semantic_review": "PASS",
+        "family_purpose_review": "PASS",
+        "unit01_to_unit06_grammar_ceiling_review": "PASS",
+        "human_pilot_status": "APPROVED_BY_OPERATOR"
+      },
+      "activity_id": "RC02-U06-TAKE-PHOTO-E154"
+    }
+  ]
+}
