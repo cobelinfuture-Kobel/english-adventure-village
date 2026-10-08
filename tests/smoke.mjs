@@ -70,9 +70,9 @@ assert.deepEqual([...itemSprite.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 1
 assert.equal(itemSprite.readUInt32BE(16), 128);
 assert.equal(itemSprite.readUInt32BE(20), 96);
 
-assert.match(html, /styles\.css\?v=rc02-multimission-20261008/);
-assert.match(html, /src\/app\.js\?v=rc02-multimission-20261008/);
-assert.match(app, /BUILD_VERSION = 'rc02-multimission-20261008'/);
+assert.match(html, /styles\.css\?v=rc02-scene-r1-20261008/);
+assert.match(html, /src\/app\.js\?v=rc02-scene-r1-20261008/);
+assert.match(app, /BUILD_VERSION = 'rc02-scene-r1-20261008'/);
 assert.match(app, /fetch\('\.\/data\/missions\.json'\)/);
 assert.doesNotMatch(app, /fetch\('\.\/data\/demo-activity\.json'\)/);
 assert.match(app, /function renderMissionHouse\(\)/);
@@ -81,12 +81,15 @@ assert.match(app, /FIND_OBJECT/);
 assert.match(app, /CLEAN_ROOM/);
 assert.match(app, /CLOSE_DOOR/);
 assert.match(app, /take-photo/);
-assert.match(app, /mastery/);
 assert.match(app, /localStorage/);
 assert.match(css, /mission-card-grid/);
 assert.match(css, /scene-clean-room/);
 assert.match(css, /scene-hallway/);
 assert.match(css, /scene-media-room/);
+assert.match(css, /floor-book/);
+assert.match(css, /door-open-state/);
+assert.match(css, /camera-on-table/);
+assert.doesNotMatch(app, /camera-control/);
 assert.doesNotMatch(app, /sk-[A-Za-z0-9_-]{10,}/);
 assert.doesNotMatch(app, /English_Learning_DB\/main/);
 

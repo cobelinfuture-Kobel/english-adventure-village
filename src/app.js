@@ -1,5 +1,5 @@
 const app = document.querySelector('#app');
-const BUILD_VERSION = 'rc02-multimission-20261008';
+const BUILD_VERSION = 'rc02-scene-r1-20261008';
 const ATLAS_PART_URLS = Array.from({ length: 6 }, (_, index) => `./assets/anchor-v1/atlas.b64.part${index + 1}?v=${BUILD_VERSION}`);
 
 async function installApprovedPixelAtlas() {
@@ -234,7 +234,7 @@ function renderMissionHouse() {
       <div class="mission-house-header">
         <div>
           <h1>Unit 06 Mission House</h1>
-          <p class="lead">四個任務都可以挑戰；完成紀錄只代表遊戲進度，不寫入 mastery。</p>
+          <p class="lead">選一個任務開始今天的冒險。四個任務都可以挑戰。</p>
         </div>
         <div class="mission-count">${missions.filter(missionCompleted).length} / ${missions.length}</div>
       </div>
@@ -337,9 +337,12 @@ function renderMissionScene(mission) {
         <div class="room-object clean-bed">${sprite('room', 'bed', 'bed')}</div>
         <div class="room-object clean-desk">${sprite('room', 'small-table', 'desk')}</div>
         <div class="cloth-on-desk" role="img" aria-label="cloth"></div>
-        <button class="room-target clean-book clean-book-a" data-clean-book="a" aria-label="book on the floor">${sprite('room', 'books', 'books')}</button>
-        <button class="room-target clean-book clean-book-b" data-clean-book="b" aria-label="book on the floor">${sprite('room', 'books', 'books')}</button>
-        <div class="clean-drop-zone">把 books 收好</div>
+        <button class="room-target floor-book floor-book-a" data-clean-book="a" aria-label="book on the floor">
+          <span class="book-cover"></span><span class="book-pages"></span>
+        </button>
+        <button class="room-target floor-book floor-book-b" data-clean-book="b" aria-label="book on the floor">
+          <span class="book-cover"></span><span class="book-pages"></span>
+        </button>
         <div class="scene-status" id="clean-status">0 / 2 books</div>
       </div>
     `;
@@ -370,13 +373,12 @@ function renderMissionScene(mission) {
         <strong>class display</strong>
       </div>
       <div class="media-table">${sprite('room', 'small-table', 'table')}</div>
-      <div class="camera-on-table" aria-hidden="true"><span class="camera-lens"></span></div>
-      <button class="camera-control" id="take-photo" aria-label="camera">
-        <span class="camera-icon"><span></span></span>
-        <strong>camera</strong>
+      <button class="camera-on-table" id="take-photo" aria-label="camera">
+        <span class="camera-lens"></span>
+        <span class="camera-label">camera</span>
       </button>
       <div class="photo-flash" id="photo-flash"></div>
-      <div class="scene-status">對準 class display</div>
+      <div class="scene-status">按 camera 拍 class display</div>
     </div>
   `;
 }
