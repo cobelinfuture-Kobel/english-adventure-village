@@ -68,8 +68,8 @@ function header(title) {
       </div>
       ${learner ? `
         <div class="statbar">
-          <span class="stat">👤 ${learner.name}</span>
-          <span class="stat">🪙 ${state.coins}</span>
+          <span class="stat">${learner.name}</span>
+          <span class="stat">Coins ${state.coins}</span>
           <span class="stat">Wood ${wood}</span>
           <span class="stat">Paper ${paper}</span>
         </div>` : ""}
@@ -87,16 +87,19 @@ function renderLearnerSelect() {
   state = null;
 
   app.innerHTML = `
-    ${header("RC01 · First Playable Vertical Slice")}
-    <section class="panel pixel-frame">
+    ${header("Choose a learner")}
+    <section class="hero-board pixel-frame">
       <h1>誰要學習？</h1>
-      <p class="lead">不需要密碼。每位學習者會在這台瀏覽器保存自己的進度。</p>
+      <p class="lead">選擇自己的角色。這台瀏覽器會分開保存兩位學習者的進度。</p>
       <div class="learner-grid">
         ${Object.values(learners).map((entry) => `
           <article class="learner-card">
-            <div class="brand-mark" aria-hidden="true">${entry.avatar}</div>
-            <h2>${entry.name}</h2>
-            <button data-learner="${entry.id}">進入村莊</button>
+            <div class="learner-avatar" aria-hidden="true">${entry.avatar}</div>
+            <div>
+              <h2>${entry.name}</h2>
+              <div class="small-note">My English Adventure</div>
+            </div>
+            <button class="primary" data-learner="${entry.id}">進入村莊</button>
           </article>
         `).join("")}
       </div>
@@ -115,52 +118,66 @@ function renderLearnerSelect() {
 function renderVillage(message = "") {
   app.innerHTML = `
     ${header("My Village")}
-    <section class="village" aria-label="Pixel village demo">
-      <div class="path"></div>
-      <div class="building home"><span class="building-label">Mission House</span></div>
-      <div class="building shop"><span class="building-label">Shop</span></div>
-      <div class="building craft"><span class="building-label">Craft</span></div>
-      <div class="building collection"><span class="building-label">Collection</span></div>
+    <section class="village" aria-label="English Adventure Village">
+      <div class="path-h"></div>
+      <div class="path-v"></div>
+      <div class="pond" aria-hidden="true"></div>
+
+      <div class="tree t1"></div><div class="tree t2"></div>
+      <div class="tree t3"></div><div class="tree t4"></div>
+      <div class="tree t5"></div><div class="tree t6"></div>
+      <div class="flower f1"></div><div class="flower f2"></div><div class="flower f3"></div>
+      <div class="rock r1"></div><div class="rock r2"></div>
+      <div class="fence f1"></div><div class="fence f2"></div>
+      <div class="signpost">Unit 06</div>
+
+      <button class="building home" data-nav="mission" aria-label="Mission House">
+        <span class="building-label">Mission House</span>
+      </button>
+      <button class="building shop" data-nav="shop" aria-label="Shop">
+        <span class="building-label">Shop</span>
+      </button>
+      <button class="building craft" data-nav="craft" aria-label="Craft">
+        <span class="building-label">Craft</span>
+      </button>
+      <button class="building collection" data-nav="collection" aria-label="Collection">
+        <span class="building-label">Collection</span>
+      </button>
+
       <div class="player" title="${learner.name}"></div>
     </section>
 
     ${message ? `<p class="feedback">${message}</p>` : ""}
 
-    <section class="panel pixel-frame">
-      <h2>Unit 06 Demo</h2>
-      <p class="lead">真正的英文內容來自 English_Learning_DB；遊戲只負責呈現、互動與獎勵。</p>
-      <div class="action-grid">
-        <article class="action-card">
-          <h3>📖 Mission</h3>
-          <p>${activity.game_projection.mission_title_zh_tw}</p>
-          <button id="start-mission" class="primary">開始任務</button>
-        </article>
-        <article class="action-card">
-          <h3>🏪 Shop</h3>
-          <p>用 Coins 購買通用材料。</p>
-          <button id="open-shop" class="secondary">前往商店</button>
-        </article>
-        <article class="action-card">
-          <h3>🔨 Craft</h3>
-          <p>把 Wood + Paper 合成 Bookshelf。</p>
-          <button id="open-craft" class="secondary">前往合成</button>
-        </article>
-        <article class="action-card">
-          <h3>📦 Collection</h3>
-          <p>查看已經合成的物品。</p>
-          <button id="open-collection" class="secondary">查看收藏</button>
-        </article>
+    <section class="quest-strip pixel-frame">
+      <div>
+        <h2>Today's Mission · ${activity.game_projection.mission_title_zh_tw}</h2>
+        <p>閱讀提示，在房間裡找到 Tom 的 school bag。</p>
       </div>
-      <p class="small-note">Source pin: ${resourceManifest.source_commit.slice(0, 12)} · ${activity.reading_entry_id}</p>
-      <button id="change-learner" class="secondary">切換學習者</button>
+      <div class="quest-actions">
+        <button id="start-mission" class="primary">開始任務</button>
+        <button id="change-learner" class="secondary">切換學習者</button>
+      </div>
     </section>
+
+    <details class="dev-details">
+      <summary>Developer info</summary>
+      <div>Source pin: ${resourceManifest.source_commit.slice(0, 12)} · ${activity.reading_entry_id}</div>
+    </details>
   `;
 
-  bind("#start-mission", renderMission);
-  bind("#open-shop", renderShop);
-  bind("#open-craft", renderCraft);
-  bind("#open-collection", renderCollection);
-  bind("#change-learner", renderLearnerSelect);
+  document.querySelectorAll("[data-nav]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.nav;
+      if (target === "mission") renderMission();
+      if (target === "shop") renderShop();
+      if (target === "craft") renderCraft();
+      if (target === "collection") renderCollection();
+    });
+  });
+
+  bind("#start-mission", () => renderMission());
+  bind("#change-learner", () => renderLearnerSelect());
 }
 
 function renderMission() {
@@ -168,28 +185,45 @@ function renderMission() {
 
   app.innerHTML = `
     ${header("Mission · " + activity.game_projection.mission_title_zh_tw)}
-    <section class="mission-card">
-      <article class="reading-note">
-        <span class="source-tag">Canonical · ${activity.reading_entry_id}</span>
-        <h2>${activity.display_shell.title}</h2>
-        <p>${activity.paragraph}</p>
-        <p class="feedback">${activity.game_projection.instruction_zh_tw}</p>
-        ${completed ? '<p class="small-note">這個 activity 已完成；重玩不會重複發放獎勵。</p>' : ""}
-      </article>
-
-      <div class="room" aria-label="Tom home room">
-        <div class="object door" title="front door"></div>
-        <div class="object small-table" title="small table"></div>
-        <button class="object bag clickable-object" id="school-bag" aria-label="school bag" title="school bag"></button>
-        <div class="object books" title="books"></div>
+    <section class="mission-shell">
+      <div class="mission-titlebar">
+        <h1>Find Tom's school bag</h1>
+        <div class="target-chip">Target: school bag</div>
       </div>
-    </section>
-    <section class="panel pixel-frame">
-      <button id="mission-back" class="secondary">回村莊</button>
+
+      <div class="mission-grid">
+        <article class="reading-note">
+          <div class="note-tab">Tom's Note</div>
+          <h2>${activity.display_shell.title}</h2>
+          <p>${activity.paragraph}</p>
+          <p class="feedback">${activity.game_projection.instruction_zh_tw}</p>
+          ${completed ? '<p class="small-note">已完成：重玩不會再次取得 Coins 或 Paper。</p>' : ""}
+          <details class="dev-details">
+            <summary>Developer info</summary>
+            <div>Canonical · ${activity.reading_entry_id}</div>
+          </details>
+        </article>
+
+        <div class="room" aria-label="Tom home room">
+          <div class="wall-strip"></div>
+          <div class="window"></div>
+          <div class="bed"></div>
+          <div class="rug"></div>
+          <div class="plant"></div>
+          <div class="object door" title="front door"></div>
+          <div class="object small-table" title="small table"></div>
+          <button class="object bag clickable-object" id="school-bag" aria-label="school bag" title="school bag"></button>
+          <div class="object books" title="books"></div>
+        </div>
+      </div>
+
+      <section class="panel pixel-frame">
+        <button id="mission-back" class="secondary">回村莊</button>
+      </section>
     </section>
   `;
 
-  bind("#school-bag", completeMission);
+  bind("#school-bag", () => completeMission());
   bind("#mission-back", () => renderVillage());
 }
 
@@ -224,15 +258,15 @@ function renderReward(repeatClear) {
         <p>這是重玩紀錄，不重複發放 Coins 或材料。</p>
       ` : `
         <div class="reward-list">
-          <span class="reward-chip">🪙 +10 Coins</span>
-          <span class="reward-chip">📄 +1 Paper</span>
+          <span class="reward-chip">+10 Coins</span>
+          <span class="reward-chip">+1 Paper</span>
         </div>
       `}
       <button id="reward-village" class="primary">回村莊</button>
     </section>
   `;
 
-  bind("#reward-village", () => renderVillage(repeatClear ? "重玩完成，獎勵未重複計算。" : "獎勵已保存到這位學習者的本機紀錄。"));
+  bind("#reward-village", () => renderVillage(repeatClear ? "重玩完成，獎勵未重複計算。" : "任務獎勵已放進你的背包。"));
 }
 
 function renderShop(message = "") {
@@ -240,25 +274,36 @@ function renderShop(message = "") {
 
   app.innerHTML = `
     ${header("Shop")}
-    <section class="panel pixel-frame">
-      <h1>Shop</h1>
-      <p class="lead">RC01 只開放一種通用材料。</p>
-      ${message ? `<p class="feedback">${message}</p>` : ""}
-      <div class="item-row">
-        <div>
-          <strong>${wood.canonical_name}</strong> · ${wood.display_name_zh_tw}
-          <div class="small-note">材料名稱採通用名稱。</div>
+    <section class="game-window pixel-frame">
+      <div class="window-grid">
+        <aside class="npc-panel">
+          <div class="npc-portrait" aria-hidden="true">S</div>
+          <h2>Village Shop</h2>
+          <p>需要材料嗎？今天可以買 Wood。</p>
+        </aside>
+
+        <div class="item-board">
+          <h1>Shop</h1>
+          ${message ? `<p class="feedback">${message}</p>` : ""}
+          <article class="item-card">
+            <div class="item-icon" aria-hidden="true">W</div>
+            <div class="item-meta">
+              <strong>${wood.canonical_name}</strong>
+              <span>${wood.display_name_zh_tw}</span>
+              <small>Common crafting material</small>
+            </div>
+            <button id="buy-wood" class="shop-button" ${state.coins < wood.shop_price_coins ? "disabled" : ""}>
+              ${wood.shop_price_coins} Coins
+            </button>
+          </article>
+          <div class="inventory">
+            <span>Coins: ${state.coins}</span>
+            <span>Wood: ${state.materials.MAT_WOOD}</span>
+            <span>Paper: ${state.materials.MAT_PAPER}</span>
+          </div>
+          <button id="shop-back" class="secondary">回村莊</button>
         </div>
-        <button id="buy-wood" class="shop-button" ${state.coins < wood.shop_price_coins ? "disabled" : ""}>
-          ${wood.shop_price_coins} Coins
-        </button>
       </div>
-      <div class="inventory">
-        <span>🪙 Coins: ${state.coins}</span>
-        <span>Wood: ${state.materials.MAT_WOOD}</span>
-        <span>Paper: ${state.materials.MAT_PAPER}</span>
-      </div>
-      <button id="shop-back" class="secondary">回村莊</button>
     </section>
   `;
 
@@ -281,18 +326,49 @@ function renderCraft(message = "") {
 
   app.innerHTML = `
     ${header("Craft")}
-    <section class="panel pixel-frame">
-      <h1>Craft</h1>
-      <p class="lead">Wood ×1 + Paper ×1 → Bookshelf</p>
-      ${message ? `<p class="feedback">${message}</p>` : ""}
-      <div class="inventory">
-        <span>Wood: ${state.materials.MAT_WOOD}</span>
-        <span>Paper: ${state.materials.MAT_PAPER}</span>
+    <section class="game-window pixel-frame">
+      <div class="window-grid">
+        <aside class="npc-panel">
+          <div class="npc-portrait" aria-hidden="true">C</div>
+          <h2>Craft Table</h2>
+          <p>把材料組合成可以收藏的物品。</p>
+        </aside>
+
+        <div class="item-board">
+          <h1>Bookshelf Recipe</h1>
+          ${message ? `<p class="feedback">${message}</p>` : ""}
+          <div class="recipe-card">
+            <div class="recipe-slot">
+              <div>
+                <div class="item-icon" aria-hidden="true">W</div>
+                <strong>Wood ×1</strong>
+              </div>
+            </div>
+            <div class="recipe-symbol">+</div>
+            <div class="recipe-slot">
+              <div>
+                <div class="item-icon" aria-hidden="true">P</div>
+                <strong>Paper ×1</strong>
+              </div>
+            </div>
+            <div class="recipe-symbol">→</div>
+            <div class="recipe-slot">
+              <div>
+                <div class="item-icon" aria-hidden="true">B</div>
+                <strong>Bookshelf</strong>
+              </div>
+            </div>
+          </div>
+          <div class="inventory">
+            <span>Wood: ${state.materials.MAT_WOOD}</span>
+            <span>Paper: ${state.materials.MAT_PAPER}</span>
+          </div>
+          <button id="craft-bookshelf" class="craft-button" ${canCraft ? "" : "disabled"}>
+            ${hasBookshelf ? "Bookshelf 已收藏" : "Craft Bookshelf"}
+          </button>
+          <button id="craft-back" class="secondary">回村莊</button>
+        </div>
       </div>
-      <button id="craft-bookshelf" class="craft-button" ${canCraft ? "" : "disabled"}>
-        ${hasBookshelf ? "Bookshelf 已收藏" : "Craft Bookshelf"}
-      </button>
-      <button id="craft-back" class="secondary">回村莊</button>
     </section>
   `;
 
@@ -311,16 +387,26 @@ function renderCollection() {
   const bookshelf = item("OBJ_BOOKSHELF");
   const owned = state.collection.includes(bookshelf.item_id);
 
+  const futureSlots = ["Chair", "Lamp", "Plant", "Mailbox", "Desk"];
+
   app.innerHTML = `
     ${header("Collection")}
-    <section class="panel pixel-frame">
-      <h1>Collection</h1>
+    <section class="game-window pixel-frame">
+      <h1>My Collection</h1>
+      <p class="lead">完成任務、購買材料並合成物品，慢慢把收藏冊填滿。</p>
       <div class="collection-grid">
-        <article class="collection-card">
-          <div class="reward-big">${owned ? "📚" : "?"}</div>
-          <h2>${owned ? bookshelf.canonical_name : "Locked"}</h2>
-          <p>${owned ? bookshelf.display_name_zh_tw : "完成 Mission → Shop → Craft 來解鎖。"}</p>
+        <article class="collection-card ${owned ? "" : "locked"}">
+          <div class="collection-icon">${owned ? "B" : "?"}</div>
+          <h2>${owned ? bookshelf.canonical_name : "Bookshelf"}</h2>
+          <p>${owned ? bookshelf.display_name_zh_tw : "Locked · Mission → Shop → Craft"}</p>
         </article>
+        ${futureSlots.map((name) => `
+          <article class="collection-card locked">
+            <div class="collection-icon">?</div>
+            <h2>${name}</h2>
+            <p>Coming later</p>
+          </article>
+        `).join("")}
       </div>
       <button id="collection-back" class="secondary">回村莊</button>
     </section>
