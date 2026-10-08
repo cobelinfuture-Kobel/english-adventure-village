@@ -1,0 +1,17 @@
+{
+  "schema_version": "eav.resource-bridge.v1",
+  "bridge_mode": "READ_ONLY_PINNED_SNAPSHOT",
+  "source_repo": "cobelinfuture-Kobel/English_Learning_DB",
+  "source_branch": "main",
+  "source_commit": "3f498e7336e6df9feb4e8f16d5b39aaf46eb03df",
+  "resources": [
+    {
+      "resource_id": "U06_READING360_E003",
+      "path": "product/a1fs_v1_2_1/data/unit06_reading360_360.json",
+      "blob_sha": "d607187e881c4b335fc60df1c3015836eadba395",
+      "entry_id": "U06-READ360-E003",
+      "canonical_role": "UNIT06_READING360_LEARNER_FACING_AUTHORITY",
+      "local_projection": "data/demo-activity.json"
+    }
+  ]
+}

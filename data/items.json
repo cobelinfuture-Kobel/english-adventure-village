@@ -1,0 +1,37 @@
+{
+  "schema_version": "eav.items.rc01.v1",
+  "items": [
+    {
+      "item_id": "MAT_WOOD",
+      "canonical_name": "Wood",
+      "display_name_zh_tw": "木頭",
+      "type": "material",
+      "shop_price_coins": 5
+    },
+    {
+      "item_id": "MAT_PAPER",
+      "canonical_name": "Paper",
+      "display_name_zh_tw": "紙",
+      "type": "material",
+      "shop_price_coins": null
+    },
+    {
+      "item_id": "OBJ_BOOKSHELF",
+      "canonical_name": "Bookshelf",
+      "display_name_zh_tw": "書櫃",
+      "type": "crafted_item",
+      "placeable": true
+    }
+  ],
+  "recipes": [
+    {
+      "recipe_id": "REC_BOOKSHELF",
+      "canonical_name": "Bookshelf",
+      "produces_item_id": "OBJ_BOOKSHELF",
+      "requires": {
+        "MAT_WOOD": 1,
+        "MAT_PAPER": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "eav.reward-rules.rc01.v1",
+  "mastery_writes_allowed": false,
+  "events": {
+    "RC01_FIRST_CLEAR": {
+      "coins": 10,
+      "materials": {
+        "MAT_PAPER": 1
+      },
+      "repeat_reward": {
+        "coins": 0,
+        "materials": {}
+      }
+    }
+  }
+}
