@@ -47,7 +47,7 @@ assert.match(app, /cozy-16bit-pixel-rpg-v1/);
 assert.match(app, /sprite\('buildings', 'mission-house'/);
 assert.match(app, /sprite\('room', 'school-bag'/);
 assert.match(app, /sprite\('items', 'bookshelf'/);
-assert.match(app, /installApprovedPixelAtlas/);
+assert.match(app, /BUILD_VERSION = 'asset-r1-cachefix-20261008'/);\nassert.match(app, /installApprovedPixelAtlas/);
 assert.match(app, /atlas\.b64\.part/);
 assert.match(css, /atlas-characters/);
 assert.match(css, /atlas-buildings/);
