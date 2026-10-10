@@ -1,0 +1,1153 @@
+{
+  "schema_version": "eav.u06.writing360.pilot15.preview.v1",
+  "source_repo": "cobelinfuture-Kobel/English_Learning_DB",
+  "source_commit": "d49ff9b4181589c42f01230f0152f49f56378241",
+  "source_path": "product/a1fs_v1_2_1/data/unit06_writing360_pilot15_approved.json",
+  "source_blob_sha": "6f3dd9db3e102a9d23c0066d59e9c20d9b85f1b7",
+  "authority_role": "UNIT06_WRITING360_OPERATOR_APPROVED_PILOT15_PREVIEW",
+  "admission": {
+    "full360_status": "HOLD_FULL360_NOT_ADMITTED",
+    "admin_preview_allowed": true,
+    "learner_release_allowed": false,
+    "pilot_only": true,
+    "approved_pilot_count": 15,
+    "human_acceptance_status": "PILOT15_APPROVED_BY_OPERATOR"
+  },
+  "stage_order": [
+    {
+      "stage": 1,
+      "operation": "TABLE_TO_SENTENCES",
+      "label_zh_tw": "表格資訊寫句子"
+    },
+    {
+      "stage": 2,
+      "operation": "COPY_AND_CHANGE",
+      "label_zh_tw": "仿寫與主詞替換"
+    },
+    {
+      "stage": 3,
+      "operation": "SENTENCE_PLAN",
+      "label_zh_tw": "句子計畫"
+    },
+    {
+      "stage": 4,
+      "operation": "GUIDED_MINI_TEXT",
+      "label_zh_tw": "引導短文"
+    }
+  ],
+  "pilots": [
+    {
+      "pilot_id": "WP01",
+      "writing_entry_id": "U06-WRITE-PILOT-E001",
+      "source_episode_id": "U06-NEB-E001",
+      "source_episode_slot_id": "U06-N360-S001",
+      "operation": "COPY_AND_CHANGE",
+      "stage": 2,
+      "support": "HIGH",
+      "title": "Ben and His Bag",
+      "fact_card": [
+        {
+          "label": "Person",
+          "value": "Ben"
+        },
+        {
+          "label": "Place",
+          "value": "school coat area"
+        },
+        {
+          "label": "Bag",
+          "value": "blue; near the bench"
+        },
+        {
+          "label": "Ability",
+          "value": "bring a bag to class"
+        }
+      ],
+      "given_model": "Ben can bring a bag to class.",
+      "instruction": "Write a place sentence about Ben. Then copy and change the model ability sentence using He.",
+      "word_bank": [
+        "Ben",
+        "school coat area",
+        "bag",
+        "bench",
+        "can",
+        "bring",
+        "class"
+      ],
+      "worked_example": {
+        "information": "Canonical model",
+        "complete_sentence": "Ben can bring a bag to class."
+      },
+      "sentence_plan": [
+        "Ben: place",
+        "Ben / He: ability"
+      ],
+      "sentence_frames": [
+        "Ben is in the ______.",
+        "He can ______ to class."
+      ],
+      "hints": [
+        "Subject: Ben",
+        "CAN + base verb: can bring"
+      ],
+      "full_version_task": "Write the complete sentences together.",
+      "self_check": [],
+      "model_answer": [
+        "Ben is in the school coat area.",
+        "He can bring a bag to class."
+      ],
+      "full_model_text": "Ben is in the school coat area. He can bring a bag to class.",
+      "target_chunk_surfaces": [
+        "can bring a bag"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP02",
+      "writing_entry_id": "U06-WRITE-PILOT-E041",
+      "source_episode_id": "U06-NEB-E041",
+      "source_episode_slot_id": "U06-N360-S041",
+      "operation": "COPY_AND_CHANGE",
+      "stage": 2,
+      "support": "HIGH",
+      "title": "Nina and Her Teacher",
+      "fact_card": [
+        {
+          "label": "Person",
+          "value": "Nina"
+        },
+        {
+          "label": "Place",
+          "value": "classroom"
+        },
+        {
+          "label": "Teacher",
+          "value": "near the desk"
+        },
+        {
+          "label": "Ability",
+          "value": "talk to the teacher"
+        }
+      ],
+      "given_model": "Nina can talk to the teacher.",
+      "instruction": "Write where Nina is. Then rewrite the model sentence with She.",
+      "word_bank": [
+        "Nina",
+        "classroom",
+        "She",
+        "can",
+        "talk",
+        "teacher"
+      ],
+      "worked_example": {
+        "information": "Canonical model",
+        "complete_sentence": "Nina can talk to the teacher."
+      },
+      "sentence_plan": [
+        "Nina: where?",
+        "She: ability?"
+      ],
+      "sentence_frames": [
+        "Nina is in the ______.",
+        "She can ______ to the teacher."
+      ],
+      "hints": [
+        "Nina -> she",
+        "She can + talk"
+      ],
+      "full_version_task": "Write the complete sentences together.",
+      "self_check": [],
+      "model_answer": [
+        "Nina is in the classroom.",
+        "She can talk to the teacher."
+      ],
+      "full_model_text": "Nina is in the classroom. She can talk to the teacher.",
+      "target_chunk_surfaces": [
+        "can talk to the teacher"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP03",
+      "writing_entry_id": "U06-WRITE-PILOT-E141",
+      "source_episode_id": "U06-NEB-E141",
+      "source_episode_slot_id": "U06-N360-S141",
+      "operation": "COPY_AND_CHANGE",
+      "stage": 2,
+      "support": "HIGH",
+      "title": "A Picture on the Screen",
+      "fact_card": [
+        {
+          "label": "Person",
+          "value": "Tom"
+        },
+        {
+          "label": "Place",
+          "value": "classroom media corner"
+        },
+        {
+          "label": "Object",
+          "value": "picture on the screen"
+        },
+        {
+          "label": "Ability",
+          "value": "change a picture for the class task"
+        }
+      ],
+      "given_model": "A picture is on the screen.",
+      "instruction": "Rewrite the model with It. Then add what Tom can do.",
+      "word_bank": [
+        "Tom",
+        "classroom",
+        "picture",
+        "screen",
+        "can",
+        "change",
+        "class task"
+      ],
+      "worked_example": {
+        "information": "Canonical model",
+        "complete_sentence": "A picture is on the screen."
+      },
+      "sentence_plan": [
+        "Picture -> It: location",
+        "Tom: ability"
+      ],
+      "sentence_frames": [
+        "It is on the ______.",
+        "Tom can ______ a picture for the class task."
+      ],
+      "hints": [
+        "Tom -> he (optional)",
+        "can + change"
+      ],
+      "full_version_task": "Write the complete sentences together.",
+      "self_check": [],
+      "model_answer": [
+        "It is on the screen.",
+        "Tom can change a picture for the class task."
+      ],
+      "full_model_text": "It is on the screen. Tom can change a picture for the class task.",
+      "target_chunk_surfaces": [
+        "can change a picture"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP04",
+      "writing_entry_id": "U06-WRITE-PILOT-E341",
+      "source_episode_id": "U06-NEB-E341",
+      "source_episode_slot_id": "U06-N360-S341",
+      "operation": "COPY_AND_CHANGE",
+      "stage": 2,
+      "support": "HIGH",
+      "title": "Football at School",
+      "fact_card": [
+        {
+          "label": "Person",
+          "value": "Leo"
+        },
+        {
+          "label": "Place",
+          "value": "playground"
+        },
+        {
+          "label": "Object",
+          "value": "a ball in front of him"
+        },
+        {
+          "label": "Ability",
+          "value": "kick a ball toward the goal"
+        }
+      ],
+      "given_model": "A ball is in front of Leo.",
+      "instruction": "Rewrite the model using him. Then write an ability sentence about Leo.",
+      "word_bank": [
+        "Leo",
+        "playground",
+        "ball",
+        "can",
+        "kick",
+        "goal"
+      ],
+      "worked_example": {
+        "information": "Canonical model",
+        "complete_sentence": "A ball is in front of Leo."
+      },
+      "sentence_plan": [
+        "Ball: location (Leo -> him)",
+        "Leo: ability"
+      ],
+      "sentence_frames": [
+        "A ball is in front of ______.",
+        "Leo can ______ toward the goal."
+      ],
+      "hints": [
+        "Leo -> he",
+        "can + kick"
+      ],
+      "full_version_task": "Write the complete sentences together.",
+      "self_check": [],
+      "model_answer": [
+        "A ball is in front of him.",
+        "Leo can kick a ball toward the goal."
+      ],
+      "full_model_text": "A ball is in front of him. Leo can kick a ball toward the goal.",
+      "target_chunk_surfaces": [
+        "can kick a ball"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP05",
+      "writing_entry_id": "U06-WRITE-PILOT-E021",
+      "source_episode_id": "U06-NEB-E021",
+      "source_episode_slot_id": "U06-N360-S021",
+      "operation": "TABLE_TO_SENTENCES",
+      "stage": 1,
+      "support": "HIGH",
+      "title": "A Picnic Bag",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Tom"
+        },
+        {
+          "label": "Where",
+          "value": "kitchen"
+        },
+        {
+          "label": "Object",
+          "value": "red bag on the table"
+        },
+        {
+          "label": "Nearby",
+          "value": "two cups beside the bag"
+        },
+        {
+          "label": "Ability",
+          "value": "bring a bag to the park"
+        }
+      ],
+      "given_model": "Tom is in the kitchen.",
+      "instruction": "Read the table. Study Sentence 1. Complete Sentences 2–3 using the selected facts. Then write all three complete sentences together.",
+      "word_bank": [
+        "table",
+        "park",
+        "Tom",
+        "kitchen",
+        "bag",
+        "bring"
+      ],
+      "worked_example": {
+        "information": "Who: Tom / Where: kitchen",
+        "complete_sentence": "Tom is in the kitchen."
+      },
+      "sentence_plan": [
+        "Sentence 1: Tom / kitchen",
+        "Sentence 2: red bag / on the table",
+        "Sentence 3: Tom / can bring a bag / to the park"
+      ],
+      "sentence_frames": [
+        "Tom is in the kitchen.",
+        "A red bag is on the ______.",
+        "Tom can bring a bag to the ______."
+      ],
+      "hints": [
+        "Copy the worked example.",
+        "Use the Object row. Write one place word.",
+        "Use the Ability row. Write one destination word."
+      ],
+      "full_version_task": "Write Sentences 1–3 together, in order, using capital letters and full stops. Write complete sentences, not just the missing words.",
+      "self_check": [
+        "Three complete sentences",
+        "The bag is on the table",
+        "can + bring (not brings)",
+        "The picnic is in the park"
+      ],
+      "model_answer": [
+        "Tom is in the kitchen.",
+        "A red bag is on the table.",
+        "Tom can bring a bag to the park."
+      ],
+      "full_model_text": "Tom is in the kitchen. A red bag is on the table. Tom can bring a bag to the park.",
+      "target_chunk_surfaces": [
+        "can bring a bag"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP06",
+      "writing_entry_id": "U06-WRITE-PILOT-E101",
+      "source_episode_id": "U06-NEB-E101",
+      "source_episode_slot_id": "U06-N360-S101",
+      "operation": "TABLE_TO_SENTENCES",
+      "stage": 1,
+      "support": "HIGH",
+      "title": "Dinner with the Family",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Leo"
+        },
+        {
+          "label": "Where",
+          "value": "kitchen"
+        },
+        {
+          "label": "Objects",
+          "value": "two plates on the table"
+        },
+        {
+          "label": "Ability",
+          "value": "sit at the table with his family"
+        }
+      ],
+      "given_model": "Leo is in the kitchen.",
+      "instruction": "Read the table. Study Sentence 1. Complete Sentences 2–3 using the selected facts. Then write all three complete sentences together.",
+      "word_bank": [
+        "table",
+        "sit",
+        "Leo",
+        "kitchen",
+        "plates",
+        "family"
+      ],
+      "worked_example": {
+        "information": "Who: Leo / Where: kitchen",
+        "complete_sentence": "Leo is in the kitchen."
+      },
+      "sentence_plan": [
+        "Sentence 1: Leo / kitchen",
+        "Sentence 2: two plates / on the table",
+        "Sentence 3: Leo / can sit / at the table with his family"
+      ],
+      "sentence_frames": [
+        "Leo is in the kitchen.",
+        "Two plates are on the ______.",
+        "Leo can ______ at the table with his family."
+      ],
+      "hints": [
+        "Copy the worked example.",
+        "Use the Objects row. Write the place noun.",
+        "Use the Ability row. Write only the base verb after can."
+      ],
+      "full_version_task": "Write Sentences 1–3 together, in order, using capital letters and full stops. Write complete sentences, not just the missing words.",
+      "self_check": [
+        "Three complete sentences",
+        "Two plates are (not is)",
+        "Leo can sit at the table with his family",
+        "can + base verb"
+      ],
+      "model_answer": [
+        "Leo is in the kitchen.",
+        "Two plates are on the table.",
+        "Leo can sit at the table with his family."
+      ],
+      "full_model_text": "Leo is in the kitchen. Two plates are on the table. Leo can sit at the table with his family.",
+      "target_chunk_surfaces": [
+        "can sit at the table"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP07",
+      "writing_entry_id": "U06-WRITE-PILOT-E181",
+      "source_episode_id": "U06-NEB-E181",
+      "source_episode_slot_id": "U06-N360-S181",
+      "operation": "TABLE_TO_SENTENCES",
+      "stage": 1,
+      "support": "MEDIUM",
+      "title": "Song Time",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Tom"
+        },
+        {
+          "label": "Where",
+          "value": "school hall"
+        },
+        {
+          "label": "Item",
+          "value": "song card"
+        },
+        {
+          "label": "Teacher",
+          "value": "near the piano"
+        },
+        {
+          "label": "Ability",
+          "value": "sing in English with the group"
+        }
+      ],
+      "given_model": "Tom is in the school hall.",
+      "instruction": "Read the table. Study Sentence 1. Complete Sentences 2–3 using the selected facts. Then write all three complete sentences together.",
+      "word_bank": [
+        "piano",
+        "sing",
+        "He"
+      ],
+      "worked_example": {
+        "information": "Who: Tom / Where: school hall",
+        "complete_sentence": "Tom is in the school hall."
+      },
+      "sentence_plan": [
+        "Sentence 1: Tom / school hall",
+        "Sentence 2: teacher / near the piano",
+        "Sentence 3: Tom (He) / can sing in English / with group"
+      ],
+      "sentence_frames": [
+        "Tom is in the school hall.",
+        "His teacher is near the ______.",
+        "He can ______ in English with the group."
+      ],
+      "hints": [
+        "The first sentence is your example.",
+        "Use the teacher-location row.",
+        "He = Tom. Only the action verb is missing; in English with the group is already given."
+      ],
+      "full_version_task": "Write Sentences 1–3 together, in order, using capital letters and full stops. Write complete sentences, not just the missing words.",
+      "self_check": [
+        "Three complete sentences",
+        "He refers to Tom",
+        "can + sing (not sings)",
+        "in English with the group"
+      ],
+      "model_answer": [
+        "Tom is in the school hall.",
+        "His teacher is near the piano.",
+        "He can sing in English with the group."
+      ],
+      "full_model_text": "Tom is in the school hall. His teacher is near the piano. He can sing in English with the group.",
+      "target_chunk_surfaces": [
+        "can sing in English"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP08",
+      "writing_entry_id": "U06-WRITE-PILOT-E281",
+      "source_episode_id": "U06-NEB-E281",
+      "source_episode_slot_id": "U06-N360-S281",
+      "operation": "TABLE_TO_SENTENCES",
+      "stage": 1,
+      "support": "MEDIUM",
+      "title": "The Town Map",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Leo"
+        },
+        {
+          "label": "Where",
+          "value": "town centre"
+        },
+        {
+          "label": "Object",
+          "value": "simple map"
+        },
+        {
+          "label": "Station",
+          "value": "near the bus stop"
+        },
+        {
+          "label": "Ability",
+          "value": "find the station on the map"
+        }
+      ],
+      "given_model": "Leo is in the town centre.",
+      "instruction": "Read the table. Study Sentence 1. Complete Sentences 2–3 using the selected facts. Then write all three complete sentences together.",
+      "word_bank": [
+        "bus stop",
+        "find"
+      ],
+      "worked_example": {
+        "information": "Who: Leo / Where: town centre",
+        "complete_sentence": "Leo is in the town centre."
+      },
+      "sentence_plan": [
+        "Sentence 1: Leo / town centre",
+        "Sentence 2: station / near the bus stop",
+        "Sentence 3: Leo / can find the station / on the map"
+      ],
+      "sentence_frames": [
+        "Leo is in the town centre.",
+        "The station is near the ______.",
+        "Leo can ______ the station on the map."
+      ],
+      "hints": [
+        "Use the first model as Sentence 1.",
+        "Use the Station row.",
+        "Use the Ability row. Write only one base verb after can."
+      ],
+      "full_version_task": "Write Sentences 1–3 together, in order, using capital letters and full stops. Write complete sentences, not just the missing words.",
+      "self_check": [
+        "Three complete sentences",
+        "The station is near the bus stop",
+        "can + find (not finds)",
+        "Map information is unchanged"
+      ],
+      "model_answer": [
+        "Leo is in the town centre.",
+        "The station is near the bus stop.",
+        "Leo can find the station on the map."
+      ],
+      "full_model_text": "Leo is in the town centre. The station is near the bus stop. Leo can find the station on the map.",
+      "target_chunk_surfaces": [
+        "can find the station"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP09",
+      "writing_entry_id": "U06-WRITE-PILOT-E061",
+      "source_episode_id": "U06-NEB-E061",
+      "source_episode_slot_id": "U06-N360-S061",
+      "operation": "SENTENCE_PLAN",
+      "stage": 3,
+      "support": "HIGH_GUIDED",
+      "title": "A Bag for a Friend",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Ben"
+        },
+        {
+          "label": "Where",
+          "value": "school hall"
+        },
+        {
+          "label": "Object",
+          "value": "small bag on the bench"
+        },
+        {
+          "label": "Inside",
+          "value": "two pencils"
+        },
+        {
+          "label": "Ability",
+          "value": "give a bag to a friend"
+        }
+      ],
+      "given_model": "",
+      "instruction": "Read the fact card. Follow the worked example. Complete Sentences 1–3. Then write the 3 sentences together as a complete mini-text.",
+      "word_bank": [
+        "on the bench",
+        "give a bag to a friend",
+        "Ben",
+        "He",
+        "can"
+      ],
+      "worked_example": {
+        "information": "Ben / in the school hall",
+        "complete_sentence": "Ben is in the school hall."
+      },
+      "sentence_plan": [
+        "Sentence 1: Ben / school hall",
+        "Sentence 2: small bag / on the bench",
+        "Sentence 3: Ben / give a bag to a friend"
+      ],
+      "sentence_frames": [
+        "Ben is in the school hall.",
+        "A small bag is ______.",
+        "He can ______."
+      ],
+      "hints": [
+        "Modelled first sentence; copy it as Sentence 1.",
+        "Use: on the bench",
+        "He = Ben; use: give a bag to a friend"
+      ],
+      "full_version_task": "Write Sentences 1–3 together in order. Write complete English sentences with capital letters and full stops. Do not add facts that are not on the fact card.",
+      "self_check": [
+        "Three complete sentences",
+        "He means Ben",
+        "can + give (not gives)",
+        "A full mini-text in the same order"
+      ],
+      "model_answer": [
+        "Ben is in the school hall.",
+        "A small bag is on the bench.",
+        "He can give a bag to a friend."
+      ],
+      "full_model_text": "Ben is in the school hall. A small bag is on the bench. He can give a bag to a friend.",
+      "target_chunk_surfaces": [
+        "can give a bag to a friend"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP10",
+      "writing_entry_id": "U06-WRITE-PILOT-E121",
+      "source_episode_id": "U06-NEB-E121",
+      "source_episode_slot_id": "U06-N360-S121",
+      "operation": "SENTENCE_PLAN",
+      "stage": 3,
+      "support": "HIGH_GUIDED",
+      "title": "After Lunch",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Ben"
+        },
+        {
+          "label": "Where",
+          "value": "kitchen after lunch"
+        },
+        {
+          "label": "Problem",
+          "value": "the table is wet near one cup"
+        },
+        {
+          "label": "Object",
+          "value": "towel on the chair"
+        },
+        {
+          "label": "Ability",
+          "value": "dry the table"
+        }
+      ],
+      "given_model": "",
+      "instruction": "Read the fact card. Follow the worked example. Complete Sentences 1–4. Then write the 4 sentences together as a complete mini-text.",
+      "word_bank": [
+        "wet",
+        "chair",
+        "dry the table",
+        "Ben",
+        "can"
+      ],
+      "worked_example": {
+        "information": "Ben / in the kitchen",
+        "complete_sentence": "Ben is in the kitchen."
+      },
+      "sentence_plan": [
+        "Sentence 1: Ben / in the kitchen",
+        "Sentence 2: the table / wet",
+        "Sentence 3: a towel / on the chair",
+        "Sentence 4: Ben / dry the table"
+      ],
+      "sentence_frames": [
+        "Ben is in the kitchen.",
+        "The table is ______.",
+        "A towel is on the ______.",
+        "Ben can ______."
+      ],
+      "hints": [
+        "Modelled first sentence; copy it as Sentence 1.",
+        "Use: wet",
+        "Use: chair",
+        "Use: dry the table; can + base verb"
+      ],
+      "full_version_task": "Write Sentences 1–4 together in order. Write complete English sentences with capital letters and full stops. Do not add facts that are not on the fact card.",
+      "self_check": [
+        "Four complete sentences",
+        "The problem is clear: wet table",
+        "The towel location is clear",
+        "can + dry (not dries)"
+      ],
+      "model_answer": [
+        "Ben is in the kitchen.",
+        "The table is wet.",
+        "A towel is on the chair.",
+        "Ben can dry the table."
+      ],
+      "full_model_text": "Ben is in the kitchen. The table is wet. A towel is on the chair. Ben can dry the table.",
+      "target_chunk_surfaces": [
+        "can dry the table"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP11",
+      "writing_entry_id": "U06-WRITE-PILOT-E161",
+      "source_episode_id": "U06-NEB-E161",
+      "source_episode_slot_id": "U06-N360-S161",
+      "operation": "SENTENCE_PLAN",
+      "stage": 3,
+      "support": "HIGH_GUIDED",
+      "title": "A Class Picture",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Tom"
+        },
+        {
+          "label": "Where",
+          "value": "classroom media corner"
+        },
+        {
+          "label": "Objects",
+          "value": "paper in front of him; two pencils nearby"
+        },
+        {
+          "label": "Ability",
+          "value": "draw a picture for the class board"
+        }
+      ],
+      "given_model": "",
+      "instruction": "Read the fact card. Follow the worked example. Complete Sentences 1–3. Then write the 3 sentences together as a complete mini-text.",
+      "word_bank": [
+        "in front of him",
+        "draw a picture for the class board",
+        "He",
+        "Tom",
+        "can"
+      ],
+      "worked_example": {
+        "information": "Tom / in the classroom media corner",
+        "complete_sentence": "Tom is in the classroom media corner."
+      },
+      "sentence_plan": [
+        "Sentence 1: Tom / classroom media corner",
+        "Sentence 2: the paper / in front of Tom",
+        "Sentence 3: Tom / draw a picture / class board"
+      ],
+      "sentence_frames": [
+        "Tom is in the classroom media corner.",
+        "The paper is ______.",
+        "He can ______."
+      ],
+      "hints": [
+        "Modelled first sentence; copy it as Sentence 1.",
+        "Use: in front of him; him = Tom",
+        "He = Tom; use: draw a picture for the class board"
+      ],
+      "full_version_task": "Write Sentences 1–3 together in order. Write complete English sentences with capital letters and full stops. Do not add facts that are not on the fact card.",
+      "self_check": [
+        "Three complete sentences",
+        "Tom → him after in front of",
+        "Tom → He as sentence subject",
+        "can + draw"
+      ],
+      "model_answer": [
+        "Tom is in the classroom media corner.",
+        "The paper is in front of him.",
+        "He can draw a picture for the class board."
+      ],
+      "full_model_text": "Tom is in the classroom media corner. The paper is in front of him. He can draw a picture for the class board.",
+      "target_chunk_surfaces": [
+        "can draw a picture"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP12",
+      "writing_entry_id": "U06-WRITE-PILOT-E241",
+      "source_episode_id": "U06-NEB-E241",
+      "source_episode_slot_id": "U06-N360-S241",
+      "operation": "SENTENCE_PLAN",
+      "stage": 3,
+      "support": "HIGH_GUIDED",
+      "title": "Listening in Class",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Ben"
+        },
+        {
+          "label": "Where",
+          "value": "classroom near the front desk"
+        },
+        {
+          "label": "Book",
+          "value": "open on the table"
+        },
+        {
+          "label": "Teacher",
+          "value": "near the board"
+        },
+        {
+          "label": "Ability",
+          "value": "listen to the teacher carefully"
+        }
+      ],
+      "given_model": "",
+      "instruction": "Read the fact card. Follow the worked example. Complete Sentences 1–3. Then write the 3 sentences together as a complete mini-text.",
+      "word_bank": [
+        "open on the table",
+        "listen to the teacher carefully",
+        "He",
+        "Ben",
+        "can"
+      ],
+      "worked_example": {
+        "information": "Ben / in the classroom",
+        "complete_sentence": "Ben is in the classroom."
+      },
+      "sentence_plan": [
+        "Sentence 1: Ben / classroom",
+        "Sentence 2: his book / open / on the table",
+        "Sentence 3: Ben / listen to the teacher carefully"
+      ],
+      "sentence_frames": [
+        "Ben is in the classroom.",
+        "His book is ______.",
+        "He can ______."
+      ],
+      "hints": [
+        "Modelled first sentence; copy it as Sentence 1.",
+        "Use: open on the table",
+        "He = Ben; use: listen to the teacher carefully"
+      ],
+      "full_version_task": "Write Sentences 1–3 together in order. Write complete English sentences with capital letters and full stops. Do not add facts that are not on the fact card.",
+      "self_check": [
+        "Three complete sentences",
+        "He = Ben",
+        "His book is open on the table",
+        "can + listen"
+      ],
+      "model_answer": [
+        "Ben is in the classroom.",
+        "His book is open on the table.",
+        "He can listen to the teacher carefully."
+      ],
+      "full_model_text": "Ben is in the classroom. His book is open on the table. He can listen to the teacher carefully.",
+      "target_chunk_surfaces": [
+        "can listen to the teacher"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP13",
+      "writing_entry_id": "U06-WRITE-PILOT-E081",
+      "source_episode_id": "U06-NEB-E081",
+      "source_episode_slot_id": "U06-N360-S081",
+      "operation": "GUIDED_MINI_TEXT",
+      "stage": 4,
+      "support": "REDUCED_BUT_EXPLICITLY_GUIDED",
+      "title": "At the Station",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Tom"
+        },
+        {
+          "label": "Place",
+          "value": "station entrance"
+        },
+        {
+          "label": "Other person",
+          "value": "friend"
+        },
+        {
+          "label": "Object",
+          "value": "travel bag near the wall"
+        },
+        {
+          "label": "Inside",
+          "value": "a book"
+        },
+        {
+          "label": "Ability",
+          "value": "give a bag to a friend"
+        }
+      ],
+      "given_model": "",
+      "instruction": "Read the fact card. Follow the worked example. Complete Sentences 1–4. Then write the 4 sentences together as a complete mini-text.",
+      "word_bank": [
+        "Tom",
+        "near the wall",
+        "inside the bag",
+        "give a bag to a friend",
+        "can"
+      ],
+      "worked_example": {
+        "information": "Tom / at the station entrance",
+        "complete_sentence": "Tom is at the station entrance."
+      },
+      "sentence_plan": [
+        "Sentence 1: Who and where: Tom / station entrance",
+        "Sentence 2: Bag and place: a travel bag / near the wall",
+        "Sentence 3: Inside the bag: a book",
+        "Sentence 4: Ability: Tom / give a bag to a friend"
+      ],
+      "sentence_frames": [
+        "Tom is at the station entrance.",
+        "A travel bag is ______.",
+        "A book is ______.",
+        "Tom can ______."
+      ],
+      "hints": [
+        "Sentence 1 is shown as the model.",
+        "Use: near the wall",
+        "Use: inside the bag",
+        "Use: give a bag to a friend"
+      ],
+      "full_version_task": "Write Sentences 1–4 together in order. Write complete English sentences with capital letters and full stops. Do not add facts that are not on the fact card.",
+      "self_check": [
+        "Four complete sentences in order",
+        "The second and third sentences describe the same bag",
+        "can + give",
+        "Copy all four into one mini-text"
+      ],
+      "model_answer": [
+        "Tom is at the station entrance.",
+        "A travel bag is near the wall.",
+        "A book is inside the bag.",
+        "Tom can give a bag to a friend."
+      ],
+      "full_model_text": "Tom is at the station entrance. A travel bag is near the wall. A book is inside the bag. Tom can give a bag to a friend.",
+      "target_chunk_surfaces": [
+        "can give a bag to a friend"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP14",
+      "writing_entry_id": "U06-WRITE-PILOT-E201",
+      "source_episode_id": "U06-NEB-E201",
+      "source_episode_slot_id": "U06-N360-S201",
+      "operation": "GUIDED_MINI_TEXT",
+      "stage": 4,
+      "support": "REDUCED_BUT_EXPLICITLY_GUIDED",
+      "title": "A Toy Drone",
+      "fact_card": [
+        {
+          "label": "Object",
+          "value": "toy drone"
+        },
+        {
+          "label": "Place",
+          "value": "park field"
+        },
+        {
+          "label": "Position",
+          "value": "on a small mat"
+        },
+        {
+          "label": "Ability",
+          "value": "fly in the park above the clear ground"
+        }
+      ],
+      "given_model": "",
+      "instruction": "Read the fact card. Follow the worked example. Complete Sentences 1–3. Then write the 3 sentences together as a complete mini-text.",
+      "word_bank": [
+        "It",
+        "on a small mat",
+        "fly in the park above the clear ground",
+        "can"
+      ],
+      "worked_example": {
+        "information": "a toy drone / near the park field",
+        "complete_sentence": "A toy drone is near the park field."
+      },
+      "sentence_plan": [
+        "Sentence 1: Object and place: a toy drone / near the park field",
+        "Sentence 2: Position: the drone / on a small mat",
+        "Sentence 3: Ability: the drone / fly / in the park / above the clear ground"
+      ],
+      "sentence_frames": [
+        "A toy drone is near the park field.",
+        "It is ______.",
+        "It can ______."
+      ],
+      "hints": [
+        "Sentence 1 is shown as the model.",
+        "It = the toy drone; use: on a small mat",
+        "Use: fly in the park above the clear ground"
+      ],
+      "full_version_task": "Write Sentences 1–3 together in order. Write complete English sentences with capital letters and full stops. Do not add facts that are not on the fact card.",
+      "self_check": [
+        "Three complete sentences",
+        "It means the toy drone",
+        "can + fly (not flies)",
+        "Combine the three sentences"
+      ],
+      "model_answer": [
+        "A toy drone is near the park field.",
+        "It is on a small mat.",
+        "It can fly in the park above the clear ground."
+      ],
+      "full_model_text": "A toy drone is near the park field. It is on a small mat. It can fly in the park above the clear ground.",
+      "target_chunk_surfaces": [
+        "can fly in the park"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    },
+    {
+      "pilot_id": "WP15",
+      "writing_entry_id": "U06-WRITE-PILOT-E221",
+      "source_episode_id": "U06-NEB-E221",
+      "source_episode_slot_id": "U06-N360-S221",
+      "operation": "GUIDED_MINI_TEXT",
+      "stage": 4,
+      "support": "REDUCED_BUT_EXPLICITLY_GUIDED",
+      "title": "The Garden Tree",
+      "fact_card": [
+        {
+          "label": "Who",
+          "value": "Tom"
+        },
+        {
+          "label": "Place",
+          "value": "family garden"
+        },
+        {
+          "label": "Object",
+          "value": "low tree branch"
+        },
+        {
+          "label": "Mat",
+          "value": "under the tree"
+        },
+        {
+          "label": "Adult",
+          "value": "beside Tom"
+        },
+        {
+          "label": "Ability",
+          "value": "climb a tree"
+        }
+      ],
+      "given_model": "",
+      "instruction": "Read the fact card. Follow the worked example. Complete Sentences 1–4. Then write the 4 sentences together as a complete mini-text.",
+      "word_bank": [
+        "under the tree",
+        "him",
+        "climb a tree",
+        "He",
+        "can"
+      ],
+      "worked_example": {
+        "information": "Tom / in the family garden",
+        "complete_sentence": "Tom is in the family garden."
+      },
+      "sentence_plan": [
+        "Sentence 1: Who and where: Tom / family garden",
+        "Sentence 2: Object and place: mat / under the tree",
+        "Sentence 3: Adult and place: adult / beside Tom",
+        "Sentence 4: Ability: Tom / climb a tree"
+      ],
+      "sentence_frames": [
+        "Tom is in the family garden.",
+        "A mat is ______.",
+        "An adult is beside ______.",
+        "He can ______."
+      ],
+      "hints": [
+        "Sentence 1 is shown as the model.",
+        "Use: under the tree",
+        "Use: him; him = Tom",
+        "Use: climb a tree; He = Tom"
+      ],
+      "full_version_task": "Write Sentences 1–4 together in order. Write complete English sentences with capital letters and full stops. Do not add facts that are not on the fact card.",
+      "self_check": [
+        "Four complete sentences",
+        "him / He both refer to Tom",
+        "can + climb",
+        "Combine all four in order"
+      ],
+      "model_answer": [
+        "Tom is in the family garden.",
+        "A mat is under the tree.",
+        "An adult is beside him.",
+        "He can climb a tree."
+      ],
+      "full_model_text": "Tom is in the family garden. A mat is under the tree. An adult is beside him. He can climb a tree.",
+      "target_chunk_surfaces": [
+        "can climb a tree"
+      ],
+      "human_review_status": "OPERATOR_APPROVED"
+    }
+  ]
+}

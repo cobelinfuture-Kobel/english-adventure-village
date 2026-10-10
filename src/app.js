@@ -1,5 +1,6 @@
 const app = document.querySelector('#app');
-const BUILD_VERSION = 'rc02-scene-r2-20261008';
+const BUILD_VERSION = 'u06-writing360-preview-r1-20261010';
+const ADMIN_WRITING_PREVIEW = new URLSearchParams(window.location.search).get('admin') === 'writing360';
 const ATLAS_PART_URLS = Array.from({ length: 6 }, (_, index) => `./assets/anchor-v1/atlas.b64.part${index + 1}?v=${BUILD_VERSION}`);
 
 async function installApprovedPixelAtlas() {
@@ -12,14 +13,20 @@ async function installApprovedPixelAtlas() {
 
 await installApprovedPixelAtlas();
 
-const [missionsData, rewardRules, itemData, resourceManifest] = await Promise.all([
+const writingPreviewPromise = ADMIN_WRITING_PREVIEW
+  ? fetch('./data/writing360-pilot15-preview.json').then((response) => response.json())
+  : Promise.resolve(null);
+
+const [missionsData, rewardRules, itemData, resourceManifest, writingPreviewData] = await Promise.all([
   fetch('./data/missions.json').then((response) => response.json()),
   fetch('./data/reward-rules.json').then((response) => response.json()),
   fetch('./data/items.json').then((response) => response.json()),
-  fetch('./data/resource-manifest.json').then((response) => response.json())
+  fetch('./data/resource-manifest.json').then((response) => response.json()),
+  writingPreviewPromise
 ]);
 
 const missions = missionsData.missions;
+const writingPreviewPilots = writingPreviewData?.pilots || [];
 
 const learners = {
   james: { id: 'james', name: 'James', sprite: 'james' },
@@ -31,6 +38,44 @@ let learner = null;
 let state = null;
 let activeMissionId = null;
 let missionProgress = {};
+
+const WRITING_PREVIEW_STORAGE_KEY = 'eav.admin.writing360.preview.v1';
+let writingPreviewState = loadWritingPreviewState();
+
+function loadWritingPreviewState() {
+  const base = { completedEntries: [], attempts: {}, lastEntryId: null };
+  try {
+    const raw = localStorage.getItem(WRITING_PREVIEW_STORAGE_KEY);
+    return raw ? { ...base, ...JSON.parse(raw) } : base;
+  } catch {
+    return base;
+  }
+}
+
+function saveWritingPreviewState() {
+  localStorage.setItem(WRITING_PREVIEW_STORAGE_KEY, JSON.stringify(writingPreviewState));
+}
+
+function normalizeWritingAnswer(value) {
+  return String(value || '').trim().replace(/\s+/g, ' ');
+}
+
+function writingStageEntries(stage) {
+  return writingPreviewPilots.filter((entry) => entry.stage === stage);
+}
+
+function writingEntryComplete(entry) {
+  return writingPreviewState.completedEntries.includes(entry.writing_entry_id);
+}
+
+function writingStageMastered(stage) {
+  const entries = writingStageEntries(stage);
+  return entries.length > 0 && entries.every(writingEntryComplete);
+}
+
+function nextWritingStage() {
+  return writingPreviewData?.stage_order?.find((stage) => !writingStageMastered(stage.stage))?.stage || 4;
+}
 
 function missionById(missionId) {
   return missions.find((mission) => mission.mission_id === missionId);
@@ -135,6 +180,15 @@ function renderLearnerSelect() {
           </article>
         `).join('')}
       </div>
+      ${ADMIN_WRITING_PREVIEW ? `
+        <section class="admin-preview-launch">
+          <div>
+            <strong>Writing360 · 管理者預覽</strong>
+            <p>HOLD 期間只開放 Pilot15 內部驗收；不寫入 James / Cyndi 的正式學習進度。</p>
+          </div>
+          <button id="open-writing-preview" class="secondary">開啟 Writing360 Pilot15</button>
+        </section>
+      ` : ''}
     </section>
   `;
 
@@ -145,6 +199,215 @@ function renderLearnerSelect() {
       renderVillage();
     });
   });
+
+  bind('#open-writing-preview', () => renderWritingPreviewHome());
+}
+
+function renderWritingPreviewHome() {
+  if (!ADMIN_WRITING_PREVIEW || !writingPreviewData?.admission?.admin_preview_allowed) {
+    renderLearnerSelect();
+    return;
+  }
+
+  const completed = writingPreviewPilots.filter(writingEntryComplete).length;
+  const recommendedStage = nextWritingStage();
+
+  app.innerHTML = `
+    ${header('Writing360 Admin Preview')}
+    <section class="game-window pixel-frame writing-preview-shell">
+      <div class="writing-preview-head">
+        <div>
+          <span class="preview-badge">HOLD · ADMIN PREVIEW ONLY</span>
+          <h1>Unit 06 Writing360 · Pilot15</h1>
+          <p class="lead">15 筆已人工核准 Pilot，用來驗收網站四階段 Writing 功能。學生正式入口仍關閉。</p>
+        </div>
+        <div class="mission-count">${completed} / ${writingPreviewPilots.length}</div>
+      </div>
+
+      <div class="writing-stage-grid">
+        ${writingPreviewData.stage_order.map((stage) => {
+          const entries = writingStageEntries(stage.stage);
+          const stageDone = entries.filter(writingEntryComplete).length;
+          const mastered = writingStageMastered(stage.stage);
+          return `
+            <article class="writing-stage-card ${stage.stage === recommendedStage ? 'writing-stage-current' : ''}">
+              <div class="mission-card-topline">
+                <span class="mission-number">Stage ${stage.stage}</span>
+                <span class="mission-status">${mastered ? 'Preview Mastered' : stage.stage === recommendedStage ? '建議下一階段' : '可預覽'}</span>
+              </div>
+              <h2>${stage.label_zh_tw}</h2>
+              <div class="mission-family">${stage.operation}</div>
+              <p>${stageDone} / ${entries.length} Pilot 完成</p>
+              <button class="${stage.stage === recommendedStage ? 'primary' : 'secondary'}" data-writing-stage="${stage.stage}">查看此階段</button>
+            </article>
+          `;
+        }).join('')}
+      </div>
+
+      <section class="preview-boundary">
+        <strong>Release gate</strong>
+        <span>Admin preview: ON</span>
+        <span>Learner release: OFF</span>
+        <span>Full360 admission: HOLD</span>
+      </section>
+
+      <button id="writing-preview-back" class="secondary">回到學習者選擇</button>
+    </section>
+  `;
+
+  document.querySelectorAll('[data-writing-stage]').forEach((button) => {
+    button.addEventListener('click', () => renderWritingStage(Number(button.dataset.writingStage)));
+  });
+  bind('#writing-preview-back', () => renderLearnerSelect());
+}
+
+function renderWritingStage(stageNumber) {
+  if (!ADMIN_WRITING_PREVIEW || !writingPreviewData) return renderLearnerSelect();
+  const stageMeta = writingPreviewData.stage_order.find((stage) => stage.stage === stageNumber);
+  const entries = writingStageEntries(stageNumber);
+  if (!stageMeta) return renderWritingPreviewHome();
+
+  app.innerHTML = `
+    ${header('Writing360 · Stage ' + stageNumber)}
+    <section class="game-window pixel-frame writing-preview-shell">
+      <div class="writing-preview-head">
+        <div>
+          <span class="preview-badge">Pilot15 Preview</span>
+          <h1>Stage ${stageNumber} · ${stageMeta.label_zh_tw}</h1>
+          <p class="lead">${stageMeta.operation}</p>
+        </div>
+        <div class="mission-count">${entries.filter(writingEntryComplete).length} / ${entries.length}</div>
+      </div>
+
+      <div class="writing-entry-grid">
+        ${entries.map((entry) => `
+          <article class="writing-entry-card ${writingEntryComplete(entry) ? 'mission-complete' : ''}">
+            <div class="mission-card-topline">
+              <span class="mission-number">${entry.pilot_id}</span>
+              <span class="mission-status">${writingEntryComplete(entry) ? 'E2E PASS' : entry.support}</span>
+            </div>
+            <h2>${entry.title}</h2>
+            <div class="mission-family">${entry.writing_entry_id}</div>
+            <p>${entry.target_chunk_surfaces.join(' · ')}</p>
+            <button class="secondary" data-writing-entry="${entry.writing_entry_id}">${writingEntryComplete(entry) ? '重新預覽' : '開始預覽'}</button>
+          </article>
+        `).join('')}
+      </div>
+
+      <div class="mission-footer-actions">
+        <button id="writing-stage-home" class="secondary">四階段總覽</button>
+        <button id="writing-stage-back" class="secondary">回到學習者選擇</button>
+      </div>
+    </section>
+  `;
+
+  document.querySelectorAll('[data-writing-entry]').forEach((button) => {
+    button.addEventListener('click', () => renderWritingActivity(button.dataset.writingEntry));
+  });
+  bind('#writing-stage-home', () => renderWritingPreviewHome());
+  bind('#writing-stage-back', () => renderLearnerSelect());
+}
+
+function renderWritingActivity(writingEntryId, result = null) {
+  if (!ADMIN_WRITING_PREVIEW || !writingPreviewData) return renderLearnerSelect();
+  const entry = writingPreviewPilots.find((item) => item.writing_entry_id === writingEntryId);
+  if (!entry) return renderWritingPreviewHome();
+
+  writingPreviewState.lastEntryId = writingEntryId;
+  saveWritingPreviewState();
+
+  app.innerHTML = `
+    ${header('Writing360 · ' + entry.pilot_id)}
+    <section class="writing-activity-layout">
+      <aside class="writing-fact-panel pixel-frame">
+        <span class="preview-badge">HOLD Preview</span>
+        <h1>${entry.title}</h1>
+        <div class="mission-family">${entry.operation}</div>
+        <h2>Fact card</h2>
+        <dl class="fact-card-list">
+          ${entry.fact_card.map((fact) => `<div><dt>${fact.label}</dt><dd>${fact.value}</dd></div>`).join('')}
+        </dl>
+        ${entry.word_bank.length ? `
+          <h2>Word bank</h2>
+          <div class="word-bank">${entry.word_bank.map((word) => `<span>${word}</span>`).join('')}</div>
+        ` : ''}
+      </aside>
+
+      <section class="writing-work-panel pixel-frame">
+        <h1>${entry.title}</h1>
+        <p class="writing-instruction">${entry.instruction}</p>
+
+        ${entry.given_model ? `
+          <div class="worked-example">
+            <strong>Model</strong>
+            <p>${entry.given_model}</p>
+          </div>
+        ` : entry.worked_example?.complete_sentence ? `
+          <div class="worked-example">
+            <strong>Worked example</strong>
+            <p>${entry.worked_example.complete_sentence}</p>
+          </div>
+        ` : ''}
+
+        <form id="writing-answer-form" class="writing-answer-form">
+          ${entry.sentence_frames.map((frame, index) => `
+            <label class="writing-sentence-row">
+              <span>Sentence ${index + 1}</span>
+              <small>${frame}</small>
+              ${entry.hints[index] ? `<em>${entry.hints[index]}</em>` : ''}
+              <input type="text" name="sentence-${index}" autocomplete="off" spellcheck="false" aria-label="Sentence ${index + 1}" />
+            </label>
+          `).join('')}
+          <button type="submit" class="primary">檢查答案</button>
+        </form>
+
+        ${result ? `
+          <section class="writing-result ${result.allCorrect ? 'writing-result-pass' : 'writing-result-retry'}">
+            <h2>${result.allCorrect ? 'Pilot E2E PASS' : '再檢查一次'}</h2>
+            <ol>
+              ${result.lines.map((line) => `<li class="${line.correct ? 'answer-pass' : 'answer-retry'}">${line.correct ? '✓' : '△'} Sentence ${line.number}</li>`).join('')}
+            </ol>
+            ${!result.allCorrect ? `
+              <details>
+                <summary>管理者：送出後查看 canonical model answer</summary>
+                ${entry.model_answer.map((answer) => `<p>${answer}</p>`).join('')}
+              </details>
+            ` : ''}
+          </section>
+        ` : ''}
+
+        <div class="mission-footer-actions">
+          <button id="writing-entry-stage" class="secondary">回 Stage ${entry.stage}</button>
+          <button id="writing-entry-home" class="secondary">四階段總覽</button>
+        </div>
+      </section>
+    </section>
+  `;
+
+  const form = document.querySelector('#writing-answer-form');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const lines = entry.model_answer.map((expected, index) => {
+      const actual = normalizeWritingAnswer(formData.get(`sentence-${index}`));
+      return {
+        number: index + 1,
+        actual,
+        expected,
+        correct: actual === normalizeWritingAnswer(expected)
+      };
+    });
+    const allCorrect = lines.every((line) => line.correct);
+    writingPreviewState.attempts[entry.writing_entry_id] = (writingPreviewState.attempts[entry.writing_entry_id] || 0) + 1;
+    if (allCorrect && !writingEntryComplete(entry)) {
+      writingPreviewState.completedEntries.push(entry.writing_entry_id);
+    }
+    saveWritingPreviewState();
+    renderWritingActivity(entry.writing_entry_id, { allCorrect, lines });
+  });
+
+  bind('#writing-entry-stage', () => renderWritingStage(entry.stage));
+  bind('#writing-entry-home', () => renderWritingPreviewHome());
 }
 
 function renderVillage(message = '') {
