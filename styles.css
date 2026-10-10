@@ -414,3 +414,182 @@ button:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
   .mission-house-header { align-items: flex-start; }
   .mission-footer-actions, .reward-actions { flex-direction: column; }
 }
+
+
+/* Unit06 Writing360 Pilot15 admin preview */
+.admin-preview-launch {
+  margin-top: 18px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+  border: 3px dashed #7a6848;
+  border-radius: 9px;
+  background: #fff2c9;
+}
+.admin-preview-launch p { margin: 4px 0 0; color: #5b6454; }
+.admin-preview-launch button { min-width: 220px; }
+
+.writing-preview-shell { padding: 20px; }
+.writing-preview-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+.preview-badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border: 2px solid #7a5335;
+  border-radius: 6px;
+  background: #e58062;
+  color: #fff8e7;
+  font-size: .78rem;
+  font-weight: 900;
+}
+.writing-stage-grid,
+.writing-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.writing-stage-card,
+.writing-entry-card {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 16px;
+  border: 3px solid #5f684f;
+  border-radius: 9px;
+  background: #fffdf0;
+  box-shadow: 0 4px 0 #3e4938;
+}
+.writing-stage-card h2,
+.writing-entry-card h2 { margin: 0; }
+.writing-stage-card p,
+.writing-entry-card p { margin: 0 0 auto; color: #4f5c49; }
+.writing-stage-current {
+  border-color: #b77c31;
+  background: #fff4c8;
+  box-shadow: 0 5px 0 #805b27;
+}
+.preview-boundary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 14px 0 18px;
+  padding: 12px;
+  border: 3px solid #695f48;
+  border-radius: 8px;
+  background: #ece8d8;
+}
+.preview-boundary span,
+.preview-boundary strong {
+  padding: 5px 8px;
+  border: 2px solid #77705c;
+  border-radius: 6px;
+  background: #fffdf0;
+}
+
+.writing-activity-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, .78fr) minmax(0, 1.22fr);
+  gap: 16px;
+}
+.writing-fact-panel,
+.writing-work-panel {
+  padding: 20px;
+}
+.writing-fact-panel h1,
+.writing-work-panel h1 { margin-top: 9px; }
+.fact-card-list {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 18px;
+}
+.fact-card-list div {
+  display: grid;
+  grid-template-columns: minmax(80px, .42fr) 1fr;
+  gap: 8px;
+  padding: 9px;
+  border: 2px solid #69644e;
+  border-radius: 6px;
+  background: #fff5cc;
+}
+.fact-card-list dt { font-weight: 900; }
+.fact-card-list dd { margin: 0; }
+.word-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.word-bank span {
+  padding: 6px 8px;
+  border: 2px solid #59704f;
+  border-radius: 6px;
+  background: #dcebd1;
+  font-weight: 800;
+}
+.writing-instruction {
+  padding: 11px 13px;
+  border: 2px solid #667058;
+  border-radius: 7px;
+  background: #eef7e9;
+  line-height: 1.55;
+}
+.worked-example {
+  margin: 12px 0;
+  padding: 12px;
+  border: 3px solid #786543;
+  border-radius: 8px;
+  background: #fff1b9;
+}
+.worked-example p { margin: 7px 0 0; font-size: 1.05rem; }
+.writing-answer-form {
+  display: grid;
+  gap: 12px;
+}
+.writing-sentence-row {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 2px solid #6a725f;
+  border-radius: 8px;
+  background: #fffdf3;
+}
+.writing-sentence-row > span { font-weight: 900; }
+.writing-sentence-row small { color: #4d5a48; font-size: .92rem; }
+.writing-sentence-row em { color: #7a5a36; font-style: normal; font-size: .86rem; }
+.writing-sentence-row input {
+  width: 100%;
+  padding: 10px;
+  border: 3px solid #66705c;
+  border-radius: 7px;
+  background: #fff;
+}
+.writing-result {
+  margin-top: 15px;
+  padding: 14px;
+  border: 3px solid #5d684f;
+  border-radius: 8px;
+}
+.writing-result-pass { background: #dff0d5; }
+.writing-result-retry { background: #fff0c9; }
+.writing-result h2 { margin-top: 0; }
+.writing-result ol { margin: 8px 0; }
+.answer-pass { color: #356238; font-weight: 900; }
+.answer-retry { color: #8b5a2c; font-weight: 900; }
+
+@media (max-width: 850px) {
+  .admin-preview-launch,
+  .writing-preview-head,
+  .writing-activity-layout {
+    grid-template-columns: 1fr;
+  }
+  .admin-preview-launch { display: grid; }
+  .writing-stage-grid,
+  .writing-entry-grid { grid-template-columns: 1fr; }
+}

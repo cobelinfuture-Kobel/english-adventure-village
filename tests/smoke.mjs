@@ -7,6 +7,7 @@ const manifest = await readJson('data/resource-manifest.json');
 const missionsData = await readJson('data/missions.json');
 const rewards = await readJson('data/reward-rules.json');
 const items = await readJson('data/items.json');
+const writingPreview = await readJson('data/writing360-pilot15-preview.json');
 const html = await readFile('index.html', 'utf8');
 const app = await readFile('src/app.js', 'utf8');
 const css = await readFile('styles.css', 'utf8');
@@ -70,9 +71,9 @@ assert.deepEqual([...itemSprite.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 1
 assert.equal(itemSprite.readUInt32BE(16), 128);
 assert.equal(itemSprite.readUInt32BE(20), 96);
 
-assert.match(html, /styles\.css\?v=rc02-scene-r2-20261008/);
-assert.match(html, /src\/app\.js\?v=rc02-scene-r2-20261008/);
-assert.match(app, /BUILD_VERSION = 'rc02-scene-r2-20261008'/);
+assert.match(html, /styles\.css\?v=u06-writing360-preview-r1-20261010/);
+assert.match(html, /src\/app\.js\?v=u06-writing360-preview-r1-20261010/);
+assert.match(app, /BUILD_VERSION = 'u06-writing360-preview-r1-20261010'/);
 assert.match(app, /fetch\('\.\/data\/missions\.json'\)/);
 assert.doesNotMatch(app, /fetch\('\.\/data\/demo-activity\.json'\)/);
 assert.match(app, /function renderMissionHouse\(\)/);
@@ -90,7 +91,55 @@ assert.match(css, /floor-book/);
 assert.match(css, /door-open-state/);
 assert.match(css, /camera-on-table/);
 assert.doesNotMatch(app, /camera-control/);
+
+assert.equal(writingPreview.schema_version, 'eav.u06.writing360.pilot15.preview.v1');
+assert.equal(writingPreview.source_repo, 'cobelinfuture-Kobel/English_Learning_DB');
+assert.equal(writingPreview.source_commit, 'd49ff9b4181589c42f01230f0152f49f56378241');
+assert.equal(writingPreview.source_blob_sha, '6f3dd9db3e102a9d23c0066d59e9c20d9b85f1b7');
+assert.equal(writingPreview.admission.full360_status, 'HOLD_FULL360_NOT_ADMITTED');
+assert.equal(writingPreview.admission.admin_preview_allowed, true);
+assert.equal(writingPreview.admission.learner_release_allowed, false);
+assert.equal(writingPreview.admission.pilot_only, true);
+assert.equal(writingPreview.admission.approved_pilot_count, 15);
+assert.equal(writingPreview.admission.human_acceptance_status, 'PILOT15_APPROVED_BY_OPERATOR');
+assert.equal(writingPreview.pilots.length, 15);
+assert.ok(writingPreview.pilots.every((entry) => entry.human_review_status === 'OPERATOR_APPROVED'));
+assert.deepEqual(writingPreview.stage_order.map((stage) => stage.operation), [
+  'TABLE_TO_SENTENCES',
+  'COPY_AND_CHANGE',
+  'SENTENCE_PLAN',
+  'GUIDED_MINI_TEXT'
+]);
+assert.deepEqual(
+  Object.fromEntries(writingPreview.stage_order.map((stage) => [
+    stage.operation,
+    writingPreview.pilots.filter((entry) => entry.operation === stage.operation).length
+  ])),
+  {
+    TABLE_TO_SENTENCES: 4,
+    COPY_AND_CHANGE: 4,
+    SENTENCE_PLAN: 4,
+    GUIDED_MINI_TEXT: 3
+  }
+);
+assert.equal(new Set(writingPreview.pilots.map((entry) => entry.writing_entry_id)).size, 15);
+assert.ok(writingPreview.pilots.every((entry) => Array.isArray(entry.fact_card) && entry.fact_card.length > 0));
+assert.ok(writingPreview.pilots.every((entry) => Array.isArray(entry.model_answer) && entry.model_answer.length >= 2));
+assert.ok(writingPreview.pilots.every((entry) => entry.full_model_text === entry.model_answer.join(' ')));
+
+assert.match(app, /ADMIN_WRITING_PREVIEW/);
+assert.match(app, /get\('admin'\) === 'writing360'/);
+assert.match(app, /writing360-pilot15-preview\.json/);
+assert.match(app, /eav\.admin\.writing360\.preview\.v1/);
+assert.match(app, /function renderWritingPreviewHome\(\)/);
+assert.match(app, /function renderWritingStage\(stageNumber\)/);
+assert.match(app, /function renderWritingActivity\(writingEntryId, result = null\)/);
+assert.match(app, /Learner release: OFF/);
+assert.match(app, /Full360 admission: HOLD/);
+assert.match(css, /writing-preview-shell/);
+assert.match(css, /writing-activity-layout/);
+
 assert.doesNotMatch(app, /sk-[A-Za-z0-9_-]{10,}/);
 assert.doesNotMatch(app, /English_Learning_DB\/main/);
 
-console.log('RC02 canonical multi-mission smoke checks PASS');
+console.log('RC02 + Unit06 Writing360 Pilot15 admin-preview smoke checks PASS');
